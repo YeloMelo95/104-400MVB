@@ -8,7 +8,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   volumeMode: Filesystem
-  storageClassName: longhorn-static
+  storageClassName: longhorn
   csi:
     driver: driver.longhorn.io
     volumeHandle: paperless-config   
@@ -24,7 +24,7 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: longhorn-static
+  storageClassName: longhorn
   volumeName: paperless-config-pv
 ---
 apiVersion: v1

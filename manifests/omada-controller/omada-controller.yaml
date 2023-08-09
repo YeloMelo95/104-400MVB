@@ -8,7 +8,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   volumeMode: Filesystem
-  storageClassName: longhorn-static
+  storageClassName: longhorn
   csi:
     driver: driver.longhorn.io
     volumeHandle: omada-data
@@ -25,7 +25,7 @@ spec:
     requests:
       storage: "5Gi"
   volumeName: omada-data-pv
-  storageClassName: longhorn-static
+  storageClassName: longhorn
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -37,7 +37,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   volumeMode: Filesystem
-  storageClassName: longhorn-static
+  storageClassName: longhorn
   csi:
     driver: driver.longhorn.io
     volumeHandle: omada-logs
@@ -54,7 +54,7 @@ spec:
     requests:
       storage: "5Gi"
   volumeName: omada-logs-pv
-  storageClassName: longhorn-static  
+  storageClassName: longhorn  
 ---
 apiVersion: v1
 kind: Service

@@ -12,7 +12,7 @@ spec:
   csi:
     driver: driver.longhorn.io
     volumeHandle: changedetection-data
-  storageClassName: longhorn-static
+  storageClassName: longhorn
   volumeMode: Filesystem
 ---
 apiVersion: v1
@@ -27,7 +27,7 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: longhorn-static
+  storageClassName: longhorn
   volumeName: changedetection-data-pv
 ---
 apiVersion: v1
