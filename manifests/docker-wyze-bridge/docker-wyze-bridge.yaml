@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wyze-bridge-deployment
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wyze-bridge
+  template:
+    metadata:
+      labels:
+        app: wyze-bridge
+    spec:
+      containers:
+      - name: wyze-bridge-container
+        image: mrlt8/wyze-bridge@sha256:9ce1923fe4b857a7f2db24c0549087a91527f756fdca112f067c6039c2487aca
+        ports:
+        - containerPort: 1935
+        - containerPort: 8554
+        - containerPort: 8888
+#        - containerPort: 8889
+#        - containerPort: 8189
+        env:
+        - name: WYZE_EMAIL
+          valueFrom:
+            secretKeyRef:
+              name: wyze-bridge-secret
+              key: email
+        - name: WYZE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: wyze-bridge-secret
+              key: password
+#        - name: ENABLE_AUDIO
+#          value: "True"
+        - name: WB_IP
+          value: "192.168.50.198"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wyze-bridge
+  namespace: monitoring
+spec:
+  selector:
+    app: wyze-bridge
+  ports:
+    - name: rtmp
+      port: 1935
+      targetPort: 1935
+      protocol: TCP
+    - name: rtsp
+      port: 8554
+      targetPort: 8554
+      protocol: TCP
+    - name: hls
+      port: 8888
+      targetPort: 8888
+      protocol: TCP
+#    - name: webrtc
+#      port: 8889
+#      targetPort: 8889
+#      protocol: TCP
+#    - name: webrtc-ice
+#      port: 8189
+#      targetPort: 8189
+#      protocol: UDP
+    - name: http
+      port: 80
+      targetPort: 5000
+      protocol: TCP
+  type: LoadBalancer
+  loadBalancerIP: 192.168.50.198

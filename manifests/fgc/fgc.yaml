@@ -1,0 +1,60 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: free-games-claimer
+  namespace: convenience
+spec:
+  schedule: "0 0 * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: free-games-claimer
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: free-games-claimer
+            image: voglerr/free-games-claimer@sha256:550d419dbfc972fad76817851d459d701c26e4ba74f1fd72b269f7989d794ef1
+            imagePullPolicy: Always
+            env:
+            - name: EG_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: fgc-secrets
+                  key: EG_EMAIL
+            - name: EG_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: fgc-secrets
+                  key: EG_PASSWORD
+            - name: PG_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: fgc-secrets
+                  key: PG_EMAIL
+            - name: PG_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: fgc-secrets
+                  key: PG_PASSWORD
+            - name: GOG_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: fgc-secrets
+                  key: GOG_EMAIL
+            - name: GOG_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: fgc-secrets
+                  key: GOG_PASSWORD                     
+            ports:
+            - containerPort: 6080
+            volumeMounts:
+            - name: fgc-volume
+              mountPath: /fgc/data
+          volumes:
+          - name: fgc-volume
+            persistentVolumeClaim:
+              claimName: fgc-pvc
+  successfulJobsHistoryLimit: 1
