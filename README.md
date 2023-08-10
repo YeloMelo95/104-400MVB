@@ -33,3 +33,7 @@ The workflow is as follows:
 ## Repository Structure
 
 This repository currently has a single folder called 'manifests' that contains the YAML manifests for each service. The manifests are organized in subfolders according to the namespace they belong to. For example, the 'home-assistant' subfolder has the manifests for the Home Assistant service in the 'automation' namespace.
+
+## Secrets
+
+Secrets are stored as "SealedSecrets" using Bitnami's SealedSecrets controller, and can be found in the application manifests. By leveraging this controller, the secret manifest can be publicly displayed, as the secret can only be decrypted by the controller.
