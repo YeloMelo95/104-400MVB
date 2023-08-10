@@ -1,11 +1,9 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:base"
-  ],
-  "reviewers":[
-  "YeloMelo95"
-  ],
+  "extends": ["config:base"],
+  "reviewers": ["YeloMelo95"],
+  "prHourlyLimit": 0,
+  "timezone": "America/Toronto",
   "kubernetes": {
     "fileMatch": ["\\.yaml$"]
   }
