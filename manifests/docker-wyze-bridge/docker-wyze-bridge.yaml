@@ -1,3 +1,22 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: wyze-bridge-secret
+  namespace: monitoring
+spec:
+  encryptedData:
+    email: AgA7ysDzBHHgZas71xrejtjAtD0v7mFL0DD6oRjEc6wQqqoHWVJE8MA3b/+DGCoV72yfXuvsjsZ35sAuii2k+v2vIU47g26DgEb/KGCwuEQRAEbcx07uTBUTIIVY7SiB5iXaRq9lyxg/wpythagOMA1cGt0RxrM0J4L/3TlHP0hf0Y1icTg0K0QJ8oT46weQ8dsATGkKFKpk1Xj+iYvEbUonlV4YHq6+kYQxRgUHxIc2OC6b+oafWO45aLbi4qhI27CY6H7FJFS4LhUPGcJAJyPg1hWYLxMjo0SEJ+eViDMuzSSLuERMmZKLOoMFgHXKFdPSMTaue3koyktQCBj5T6hcnE0grHvrz5oRn4p2U3SKnW9bcytSEYUfuek1rCMNTT/eo7bPWm/llDrDjj3gvLF5bZdMYYnwYqtgHvoz/WI63L3CKSB6DfdyyT+EO4O4PWd+QObkNYtPi/p8NHhF/s4sQndrywTtjRQdPW+Uv7I8F1/EwVkK7wlJ12nkCnC7bfrE5u5N+PRYF7ajOpjyOe6ZB57En6ac0DiSzBLA+j8W++AEEn9TRgkZ4+wHcFj5gl/NI9W9s5pPqI1pT1sK1XvnMZCHR/ZQ8j+xpqwBUPblSxUKgWTRB+xZm38m7qEw1IGQcLOfq5P9410tczvVnls5griF/vu4D+qQLRf6rdHHaeToEnWOzAXqavMyiFpHvTDVaQW6mSDi3ZFKD6ZzAaxF
+    password: AgBGzcwFL/LU2A0NwAgaeekQGBdY5xr/vQ0YxT8kY6BXhNzOBryQ0TleGsxawbcmdCfRWm4W05juLvKw4YcrO9vYJhscx3ipj9SX9AKLMWf4NIU1heRBi8Rc59RwGuZzWW16eEMg3IReySQbPsmDHY3E1iyZu5hAhI8Ku5NwLYOYb+GSKb7AII+w8605YUgKXrDR4fH/XYdHtkscjWcKhZSV6fHCl+sCpxgKSeBp2ni9/YJ1Q1sr4f21DlduxE1U03rv52l6BHmhGkCiA8VQHWoLsqhnujxYoN47Rb6Rt8rjovz3AEgta0XKhBspAOty2AwxIyrqizdrNs62GQfgGdldEuNJdY0XpyKGPgMyHzazgSUHiTh10Z/t7w78bTpImqJ8fdgb7GW7oq31PNas2SJdT86bwPgTN1offeduHGZK0RtBjr4lXwNr7sCz88dbeJ7zgbms2MNKnxy+B3RLSa4oAtgrr7kLKOzwWgXYwLXqh78zjfnvajEyxrSNEEpRXOYoAH59uUJx9XpcmcoNLK278Lsw7USVBbvRPFU2qjoB0ntU2opDiWLEiNYni9VCZ0/D4d6loLHAyq0rWIfrcVXagM+Yd4sqsxiIi4DygvI/HMguUUUbVVpbuFsyCnzk8LPt+aLB3maYlekOimJSBfplLXhwcyjSGNyLN/JBXZW2VJLnx3fKAEqNIESer7nXzhegO088E2Q5IcQ=
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/instance: docker-wyze-bridge
+      name: wyze-bridge-secret
+      namespace: monitoring
+    type: Opaque
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
