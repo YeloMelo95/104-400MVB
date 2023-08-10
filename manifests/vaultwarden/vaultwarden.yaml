@@ -1,3 +1,21 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: vaultwarden-secrets
+  namespace: convenience
+spec:
+  encryptedData:
+    ADMIN_TOKEN: AgAftZdH8DwAcqITL4jEopG1xK4dYNvzPJ9AET2gAE/nFG+ofDIFIKUpF1a3i6jKmzaWlJlb4h3luc9EtLFONx0ySPEwUK3PYfUyPmLI5dgZW2dLTTl3x1Uuc1MKIumblS0Kmk83AAErBCFrZti9TskMXdDo1Omun3MlA7CC0uA9wjECsfbCOyoSYoK6wiJkk7nlJ9putGspuutiYHRC22VP+AJZiyqjLiwyAV9CxShFwmQG9PziHGsy9qRyaCphaHSqqUJKUqPkU51yJn8LLR8xkpYTerIYcUcWRA3H5dw8izEhA1bpMFUZy0xFGo8Jl7rs8wjNVKP6GwhXwW72Ste2uicLincXAW6Im2VpaSGiZaVcgBOqnNPPFrGx9thKjgY8arIDUi0Xuw67mlq7cFAnX0oha0xla9Z1ek+Q3YqqAlyKG3cBnRrZAK6b7Z5Bh7E490aIEt/2Y/kvcHM6z5gAVvZkRtHBgKrFRFwdbyS3JN0UFypiibcQXKa9JYhNf/suucGxsHHK8/83tKpxpno6HqYFNGsd1dvLTzbF0iosMF3sKxzZ8/oPLYtCe2WClzMV/041hvfqarYV4NaNi7EaecdYeHaLXfPJKYJXpXOZ29iOn6HWnBUKnE/D7gp7qrAk5EH28qdMi6TD6QEyZ7F+eILv3js+kwxlu8yMyQz7JRmRNrC+WYbNExtL8GuwtZDy1h0hkyqtkVY=
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/instance: vaultwarden
+        name: vaultwarden
+      name: vaultwarden-secrets
+      namespace: convenience
+    type: Opaque
 ---
 apiVersion: v1
 kind: PersistentVolume
