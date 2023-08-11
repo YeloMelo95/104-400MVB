@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: keycloak #add app name here
+  namespace: argocd
+spec:
+  destination:
+    name: '' #leave this
+    namespace: security #add app namespace here
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: working/keycloak #add app folder here
+    repoURL: 'https://github.com/YeloMelo95/104-400MVB.git'
+    targetRevision: HEAD
+  sources: []
+  project: public
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

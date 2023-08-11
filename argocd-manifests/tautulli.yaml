@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tautulli #add app name here
+  namespace: argocd
+spec:
+  destination:
+    name: '' #leave this
+    namespace: monitoring #add app namespace here
+    server: 'https://kubernetes.default.svc'
+  source:
+    repoURL: https://geek-cookbook.github.io/charts/
+    chart: tautulli
+    targetRevision: 11.4.2
+    helm:
+      releaseName: tautulli
+      values: |
+        persistence:
+          data:
+            enabled: true
+            mountPath: /config
+            existingClaim: tautulli-config-pvc
+            accessModes:
+              - ReadWriteOnce             
+        env:
+          TZ: America/Toronto
+  project: public
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
