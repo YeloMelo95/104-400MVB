@@ -152,7 +152,7 @@ spec:
       serviceAccountName: default
       containers:
         - name: paperless
-          image: paperlessngx/paperless-ngx@sha256:b262ab99e148225464570eaf31146c75b75a250f7596bc368dae4bd57581ede9
+          image: paperlessngx/paperless-ngx@sha256:3e279b442ff805f17f9ee1213f2ae596dd4895e3b00dbd8429eaa1a460824b78
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
