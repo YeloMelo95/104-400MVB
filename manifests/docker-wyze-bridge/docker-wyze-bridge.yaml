@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: wyze-bridge-container
-        image: mrlt8/wyze-bridge@sha256:9ce1923fe4b857a7f2db24c0549087a91527f756fdca112f067c6039c2487aca
+        image: mrlt8/wyze-bridge@sha256:4d68d94429d689137a2720a990c4b228e4e8e878331194f9ca1b9f0cb8829b35
         ports:
         - containerPort: 1935
         - containerPort: 8554
