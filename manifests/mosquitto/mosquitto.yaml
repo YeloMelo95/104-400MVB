@@ -81,7 +81,7 @@ spec:
       enableServiceLinks: true
       containers:
         - name: mosquitto
-          image: "eclipse-mosquitto@sha256:ed9f8616d33ce45caca6f6c0fa18e631d9291ceeff0ecb31b6f24a9589c30038"
+          image: "eclipse-mosquitto@sha256:7937d71daf908c40a0b72f17e77ea331833f76b522cb4a8d9dfcecf89e65f7d8"
           imagePullPolicy: IfNotPresent
           ports:
             - name: mqtt
