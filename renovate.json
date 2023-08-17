@@ -2,6 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:base"],
   "reviewers": ["YeloMelo95"],
+  "fetchReleaseNotes": "branch",
   "prHourlyLimit": 0,
   "timezone": "America/Toronto",
   "kubernetes": {
