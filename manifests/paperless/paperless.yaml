@@ -624,7 +624,7 @@ spec:
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: redis-paperless
+                  name: paperless-secrets
                   key: redis-password
             - name: REDIS_TLS_ENABLED
               value: "no"
