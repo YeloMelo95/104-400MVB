@@ -38,7 +38,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: free-games-claimer
-            image: voglerr/free-games-claimer@sha256:aac69f1768abdea41831820efbb4cad409d745d6870c5c857c586ad42d04a180
+            image: voglerr/free-games-claimer@sha256:3fbe3524a519372de2768ffaeb9f1804aa156a753fb00376056980825a0c6eb7
             imagePullPolicy: Always
             env:
             - name: EG_EMAIL
