@@ -44,7 +44,7 @@ metadata:
   name: paperless-config-pv
 spec:
   capacity:
-    storage: 1Gi
+    storage: 10Gi
   accessModes:
     - ReadWriteOnce
   volumeMode: Filesystem
@@ -63,7 +63,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
+      storage: 10Gi
   storageClassName: longhorn
   volumeName: paperless-config-pv
 ---
