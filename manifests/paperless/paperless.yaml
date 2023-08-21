@@ -75,7 +75,7 @@ spec:
   capacity:
     storage: 1000Gi
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   volumeMode: Filesystem
   nfs:
     path: /mnt/Home/Documents
@@ -89,7 +89,7 @@ metadata:
   namespace: convenience
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1000Gi
