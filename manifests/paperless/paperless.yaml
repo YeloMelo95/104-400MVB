@@ -19,6 +19,25 @@ spec:
       namespace: convenience
     type: Opaque
 ---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: redis-paperless
+  namespace: databases
+spec:
+  encryptedData:
+    redis-password: AgAl8VX6Q0AwOCvhjulz+Ox/pslPjO9KjME//vzaSMnWDEWtJURt9ASXl7NPCujOK3AlaBuQ15FS/nPpgchd7uvl35uL1uFFW5kAWvRWnhVzce/2nrthkzqYf+vGbKRrKv9uQu4pVzsdY+mnUxNtLhJZ1tPQZtp7N/y0md1N5VnP2X9aok5JfZGYfyq3UbC8xibBDYuVYvi8RhUNFL4GJIhBB9NFFeQyxmrEXVMQ6xU+oI4k8Kn0Y1ETKC4dkOrD8TkpV0x91s5z4QxwNhM2pxwUDTvlRNmjxXNFWjZSNfP+guV7exDmyjb+iAcL2gmeCgjeN/Bh2odrZRLXOND9AMI8/Y6+XHOIVIOghA0R4fJjHygXK08Eu0T8X04Dw4iEb3zUtMULTJ66JwwWHCUup+7/iXJJNmp/jugbmZQe+FAX9bvPjx3e4XxbzkeA/9Ry2AXYhO6Qsz7rK+f/odSyHKE60DYwQwKM5JZAGVxJfpdGLnjXi7rhD8LUU4CF+sGoAAnBaRz8dR7oqnSOQVjjUbKvHFXjO7T3jjg1/ImZx2NyNi3+a3i2/3B3GlgOUFPnPBzwbvbQkHPakElIWdR7aXPMu8himog7HBaHkqdJEDk52z5KtnGpgpj1xHT6s6Ze9dc6xwVguEzkj+ZpA5LzIbK1cImUCrRMZ0NGojAanJNjerIN6z6ZiRy7bWtXbBr2em0ImR9ADqZ+zGyB
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/instance: redis-paperless
+        app.kubernetes.io/name: redis-paperless
+      name: redis-paperless
+      namespace: databases
+    type: Opaque
+---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
