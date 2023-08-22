@@ -6,42 +6,42 @@
   "prHourlyLimit": 0,
   "timezone": "America/Toronto",
   "kubernetes": {
-    "fileMatch": ["\\.yaml$"]
-},
-{
-  "prBodyTemplate": "{{{header}}}{{{table}}}{{{notes}}}{{{changelogs}}}{{{controls}}}"
-},
-{
-  "prBodyNotes": ["{{#if isMajor}}:warning: MAJOR MAJOR MAJOR :warning:{{/if}}"]
-},
-  "packageRules": [
-  {
-    "matchPackageNames": ["louislam/uptime-kuma"],
-    "customChangelogUrl": "https://github.com/louislam/uptime-kuma"
+   "fileMatch": ["\\.yaml$"]
   },
   {
-    "matchPackageNames": ["vaultwarden/server"],
-    "customChangelogUrl": "https://github.com/dani-garcia/vaultwarden"
-  },    
+    "prBodyTemplate": "{{{header}}}{{{table}}}{{{notes}}}{{{changelogs}}}{{{controls}}}"
+  },
   {
-    "matchPackageNames": ["paperlessngx/paperless-ngx"],
-    "customChangelogUrl": "https://github.com/paperless-ngx/paperless-ngx"
-  },     
-  {
-    "matchPackageNames": ["eclipse/mosquitto"],
-    "customChangelogUrl": "https://github.com/eclipse/mosquitto"
-  },    
-  {
-    "matchPackageNames": ["homeassistant/home-assistant"],
-    "customChangelogUrl": "https://github.com/home-assistant/supervisor"
-  },      
-  {
-    "matchPackageNames": ["mrlt8/wyze-bridge"],
-    "customChangelogUrl": "https://github.com/mrlt8/docker-wyze-bridge"
-  },    
-  {
-    "matchPackageNames": ["dgtlmoon/changedetection.io"],
-    "customChangelogUrl": "https://github.com/dgtlmoon/changedetection.io"
-  }    
- ]
+    "prBodyNotes": ["{{#if isMajor}}:warning: MAJOR MAJOR MAJOR :warning:{{/if}}"]
+  },
+    "packageRules": [
+    {
+      "matchPackageNames": ["louislam/uptime-kuma"],
+      "customChangelogUrl": "https://github.com/louislam/uptime-kuma"
+    },
+    {
+      "matchPackageNames": ["vaultwarden/server"],
+      "customChangelogUrl": "https://github.com/dani-garcia/vaultwarden"
+    },    
+    {
+      "matchPackageNames": ["paperlessngx/paperless-ngx"],
+      "customChangelogUrl": "https://github.com/paperless-ngx/paperless-ngx"
+    },     
+    {
+      "matchPackageNames": ["eclipse/mosquitto"],
+      "customChangelogUrl": "https://github.com/eclipse/mosquitto"
+    },    
+    {
+      "matchPackageNames": ["homeassistant/home-assistant"],
+      "customChangelogUrl": "https://github.com/home-assistant/supervisor"
+    },      
+    {
+      "matchPackageNames": ["mrlt8/wyze-bridge"],
+      "customChangelogUrl": "https://github.com/mrlt8/docker-wyze-bridge"
+    },    
+    {
+      "matchPackageNames": ["dgtlmoon/changedetection.io"],
+      "customChangelogUrl": "https://github.com/dgtlmoon/changedetection.io"
+    }    
+  ]
 }
