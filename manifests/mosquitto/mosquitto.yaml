@@ -81,7 +81,7 @@ spec:
       enableServiceLinks: true
       containers:
         - name: mosquitto
-          image: "ghcr.io/eclipse/mosquitto:v2.0.17"
+          image: "eclipse/mosquitto:2.0.16"
           imagePullPolicy: IfNotPresent
           ports:
             - name: mqtt
