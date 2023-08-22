@@ -7,5 +7,36 @@
   "timezone": "America/Toronto",
   "kubernetes": {
     "fileMatch": ["\\.yaml$"]
-  }
+  },
+  "packageRules": [
+    {
+      "matchPackageNames": ["louislam/uptime-kuma"],
+      "customChangelogUrl": "https://github.com/louislam/uptime-kuma"
+    },
+    {
+      "matchPackageNames": ["vaultwarden/server"],
+      "customChangelogUrl": "https://github.com/dani-garcia/vaultwarden"
+    },    
+    {
+      "matchPackageNames": ["paperlessngx/paperless-ngx"],
+      "customChangelogUrl": "https://github.com/paperless-ngx/paperless-ngx"
+    },     
+    {
+      "matchPackageNames": ["eclipse/mosquitto"],
+      "customChangelogUrl": "https://github.com/eclipse/mosquitto"
+    },    
+    {
+      "matchPackageNames": ["homeassistant/home-assistant"],
+      "customChangelogUrl": "https://github.com/home-assistant/supervisor"
+    },      
+    {
+      "matchPackageNames": ["mrlt8/docker-wyze-bridge"],
+      "customChangelogUrl": "https://github.com/mrlt8/docker-wyze-bridge"
+    },    
+    {
+      "matchPackageNames": ["dgtlmoon/changedetection.io"],
+      "customChangelogUrl": "https://github.com/dgtlmoon/changedetection.io"
+    },     
+  ]
+ }  
 }
