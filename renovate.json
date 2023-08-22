@@ -36,7 +36,6 @@
     {
       "matchPackageNames": ["dgtlmoon/changedetection.io"],
       "customChangelogUrl": "https://github.com/dgtlmoon/changedetection.io"
-    },     
+    }    
   ]
- }  
 }
