@@ -170,7 +170,7 @@ spec:
       serviceAccountName: default
       containers:
         - name: paperless
-          image: paperlessngx/paperless-ngx:v1.17.1
+          image: paperlessngx/paperless-ngx:1.17
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
