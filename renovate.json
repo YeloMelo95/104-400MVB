@@ -30,7 +30,7 @@
       "customChangelogUrl": "https://github.com/home-assistant/supervisor"
     },      
     {
-      "matchPackageNames": ["mrlt8/docker-wyze-bridge"],
+      "matchPackageNames": ["mrlt8/wyze-bridge"],
       "customChangelogUrl": "https://github.com/mrlt8/docker-wyze-bridge"
     },    
     {
