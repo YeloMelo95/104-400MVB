@@ -198,6 +198,11 @@ spec:
                 secretKeyRef:
                   name: paperless-secrets
                   key: PAPERLESS_ADMIN_PASSWORD
+            - name: PAPERLESS_AUTO_LOGIN_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-secrets
+                  key: PAPERLESS_ADMIN_USER                  
             - name: PAPERLESS_REDIS
               value: redis://redis-paperless-master.databases.svc.cluster.local:6379
             - name: PAPERLESS_EMAIL_TASK_CRON
