@@ -447,12 +447,12 @@ spec:
             - name: providers
               mountPath: /opt/bitnami/keycloak/providers
             - mountPath: /etc/x509/https/rootCA.crt
-              name: rootCert
+              name: root-cert
       volumes:
         - name: providers
           persistentVolumeClaim:
             claimName: keycloak-providers-pvc
-        - name: rootCert
+        - name: root-cert
           secret:
             secretName: keycloak-certificates   
             items:
