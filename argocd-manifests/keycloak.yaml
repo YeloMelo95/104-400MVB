@@ -9,7 +9,7 @@ spec:
     namespace: security #add app namespace here
     server: 'https://kubernetes.default.svc'
   source:
-    path: working/keycloak #add app folder here
+    path: manifests/keycloak #add app folder here
     repoURL: 'https://github.com/YeloMelo95/104-400MVB.git'
     targetRevision: HEAD
   sources: []
