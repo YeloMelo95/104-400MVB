@@ -9,7 +9,7 @@ spec:
     namespace: monitoring #add app namespace here
     server: 'https://kubernetes.default.svc'
   source:
-    path: working/uptime-kuma #add app folder here
+    path: manifests/uptime-kuma #add app folder here
     repoURL: 'https://github.com/YeloMelo95/104-400MVB.git'
     targetRevision: HEAD
   sources: []
