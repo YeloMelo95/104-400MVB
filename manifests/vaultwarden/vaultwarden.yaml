@@ -99,7 +99,7 @@ spec:
       enableServiceLinks: true     
       containers:
         - name: vaultwarden
-          image: "vaultwarden/server:1.29.1"
+          image: "vaultwarden/server:1.29.2"
           imagePullPolicy: IfNotPresent
           env:
             - name: DATA_FOLDER
