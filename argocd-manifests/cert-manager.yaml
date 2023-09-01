@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager #add app name here
+  namespace: argocd
+spec:
+  destination:
+    name: '' #leave this
+    namespace: cert-manager #add app namespace here
+    server: 'https://kubernetes.default.svc'
+  source:
+    repoURL: https://charts.jetstack.io
+    chart: cert-manager
+    targetRevision: v1.12.3
+    helm:
+      releaseName: cert-manager
+  project: public
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true
+      - Replace=true
