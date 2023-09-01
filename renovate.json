@@ -36,6 +36,10 @@
 			"customChangelogUrl": "https://github.com/mrlt8/docker-wyze-bridge"
 		},
 		{
+			"matchPackageNames": ["ghcr.io/kube-vip/kube-vip"],
+			"customChangelogUrl": "https://github.com/kube-vip/kube-vip"
+		},		
+		{
 			"matchPackageNames": ["dgtlmoon/changedetection.io"],
 			"customChangelogUrl": "https://github.com/dgtlmoon/changedetection.io"
 		}
