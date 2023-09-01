@@ -1,0 +1,271 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nextcloud-config-pv
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  storageClassName: longhorn
+  csi:
+    driver: driver.longhorn.io
+    volumeHandle: nextcloud-config
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: nextcloud-config-pvc
+  namespace: backup
+spec:
+  accessModes:
+  - "ReadWriteOnce"
+  resources:
+    requests:
+      storage: "10Gi"
+  volumeName: nextcloud-config-pv
+  storageClassName: longhorn 
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nextcloud-data-pv
+spec:
+  capacity:
+    storage: 1000Gi
+  accessModes:
+    - ReadWriteMany
+  volumeMode: Filesystem
+  nfs:
+    path: /mnt/Home/Data/NextCloud
+    server: 192.168.50.50
+  storageClassName: nfs
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nextcloud-data-pvc
+  namespace: backup
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1000Gi
+  storageClassName: nfs
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: nextcloud
+  namespace: backup
+spec:
+  encryptedData:
+    db-password: AgCwzCmUz0A2wvfBzQ1LLJYtfp+FTofYvsypBcX0Y94WaUUvRftpDRyGxOzDQ98Nw9aMLXYRlqPYAWIDz9O7fm/0MgHSqCB1EYUTowgOCtRZnUss0wOt6C6nou2Mfp+5IG0kANu3peNW0MPbBmGw265V7h3gjjm5BES6ocT37ZX1vnXZAy2JPtjUqRsyekdcgSWRWjrsLfNgyWBrcCAwGF08JCN0u4HLFCLitADp59sIuGXMUuKJuz7ODH2ktJhe0w0+r8l5Kgymr7qbcpXkD56+b0TawGr+L9Awrs+OPRK5zNVzJxdKLxhx3htNloAX5i9lkqoM1o/98ta3nQv/Hh5m+MOWKxoNr2S7RPJg8x31i22KlcxA30Eedx3iU4Kz//XHwZhzKNEl7rOL+a/YOcjepwlW9NgpR00y7EFd7qu3IXbnLGnrMTRF7Qo72NkgGZh4T1ehyQENcNoaslKiPRZTLv7eEf1W8IzRW7JsqsTOsv+o/IMjcpjNjM5RDq+CZj4mBzfN4nPyT0gxbMlYmyn4H7ZMvHcsl2kCQmtwWpGIdftdUbTO4TQHnh0SHlKERpSwrrt6kGROluq0uT9OnB1sy9+dLnvzQFirl073d8K8b1L3lymHr3dvZ49LAqsq29Y4M/0OMatz356sAzd2d04n3VQlZPXwewcfZ2yxozuOlYJZZZzYI5/KR8C0IWvLIcGoU+8Pe6BWO1E=
+    db-username: AgBySVhAhE/j+yezqgkZsVf5op5TLzut0c4Pe45N0Nng7v7CADUDx6Jx7oxtQKu4UxG1mc7MKHz3cFwWqLC4D4JjlgtuwhHiwoM6fhs0uW9hUfzTmMYJdmvbLN6TYi7tdQQZrxLb/Bd3fVrusmr7bQDlYQ8Qsip/M7VR2wvBfw41g3/RY+DjhE4Qt1BZrEtmH6jYwlRcwS1F14mn99j4Pc8LO4qJ+tc1rxUcGjkW5CccNLqo/mdTJPBvanPwndW161CJR+p1lAQbvVwVB/b/byeLuh8dOBH8v1HK86/8Oenhmk1t7PYsUeWKg3i+zXWrc5inmKX/rGTgIYJTenzCkvOc9JcNVSaH9LxZoB9Ie5BwvNbYqOx53jnqFbz+XHM2rlC6RXP+Z3mN3w5UkP2juJsli+kErJ8Yo44OY+8a7avDzC7iPi3Nrs9JI8Ef8FNQTtdWldJmDaoFt53F0Ea/kgblaDowsDGltg9NlttvKRbXM4/kb//X9+zS5dTqs/0ZvwKKA4c2VUT0QXrAgea+W3O/e7ZLtVeKjkRyZ64N8502hohmE4Z/2J0Ik+L9ycNOd2TL0WuPLLjqjM6cwZAsyCmfRBV8W/FxNXvElKBjljcsDar+lXFchQOiDbRT2UqYiwqevywbH4vwLJf1Q8pC0SJjvTGVlwOLB4Q/GmZltIMpEpaAL1oRX195QKam/OXaT7Rl8AtliCLzVtU=
+    nextcloud-password: AgBsFGLzh/dcJsehrw3kD4M/fnEPGlDhFcj16H3Xs3RVMjymaNGXiUNAeRRmk8w67suZv86rPLcGQ+txuket7SAdN7U3RWj1ZI/nggPIo+snYbHLccrK9r1Jz3oBziA68Dgjn4PcqrXK6rUPVgiaiq63XeMgjDTHnk8EUE6qs6wzuYh+u4bnbfDaqtg9axuzhvaKIhgitkw7L4O9YbuCMox+rxQxNr2rW3s2H6Eaidr52nJHr4fGBzRF4O5obIucM7Cl26enX36Hoq25/DlthB6aZR3xx2YOUFwErG1t+5hvs2zAeXTgXsidUwurAYRNtNqyQKwnWNm9n801oldxvFdFyfAR59AaT32gv2JFCpYWGjgCaJQsbYNGm1xiA6f704f1cApbjS/d99QCJ9NVMHl4ov3skeTgGMStH0RUHwYVPfMNbm1cANCLbUGZ0CGfJOEe2wNQdsS1AbcKs0wneuFQb9a+czbH/jiRm7X4GkL9C8kt1dOQJTjEYjlGgNa3/xH37Q4Xo4UJ57X5oUExIPkQ8w8U+0cmvrbi+1nt4ybla02zIS5OeNzJAIeoE0ULh1ImBBnXrA5ecK4isb9IWpU9pAo0zhr6lBJY5cIOlgkAtq7XeYRw7wRVw4PrSmb8J3Esr05j2nJv6MgX75pn0d50I/ptjl8YLAINjIx3xSyDWFtSSTyY+QCYwY7NgY4fPZj28byF732t6T8=
+    nextcloud-token: AgC1PXPinjs2gPDnZMneYiJZu9eyrCNLN0cbCbnoHnrg0Y20LG64em29pHznFGfrkypKVfm8rb/89ML+2MM+XUBWENLMaFpBhrEeUD+5CZC9845yC8kApnbWtzRPOqujCknwvneaHE9PNrlJ2dVIXSAiRSaTq9XOWfKD5NwlctwtncuYy1urZbXwo5Vj5rv0m5XBkv749vxse3vbUpC1l5hPQ7mU2ygTIEvb4lNpKjmZJQWkg8pGfV3L+tAV9KzUTK/PbrcDyv3ZIcbaOdR1k1FUULYFDRxNaWtFA+S+QwBH+nThylTwPYaVVMgeN9RwYJwQYgvCaYe9FsYD8ILlXzUqZIkE6rCthXFi9yXet5Q8Dc405JXfzF2ArksyPtIyfwgQwgmDtMjYKSkK0XxRBiZJIMS3V7eaIISTsoJ/K7kP0F1Gsgbr3otd7NkepecMoNTcBgSs8Uv7CmEQA96hLRWq50UBFxlo7BpF1AVod0K3Z53qFJrlZjIZWnekjDrnOWsr2qv/HvK+h+GeNkzEQvAEnQOEZ6LAK7Ry4b9gBxqbFWKjy3/LzjhCRjHWvL9IXKWtH2YRFrnYxkwHjW/SM/yUJLdZfzqJnThCX9ElgRcXrmiNLy/Lbg//CYb/Wze1XR+EeunfaQbNhkdosUF0zMyf097xYpySmmx4a821Xi7zhoPFfvw3nL8HZJuvH6/QCo05rMZQIwWDT143
+    nextcloud-username: AgB5EJ2POcHzaWw7qiExCqZXy6ahYL+EFfHn1jRvRWhwtSSwF7adi1h7rbmxNf68HDB/coWtCJy2Uyos1NwVPImT251ED6eOn9vCURFaCfofy5HbFI5+F8ZLQ90vlFuCC0q2Aam6BbN99yNSvsDizO96J/hD1JxoyAKqxPgF5eW+1rnKCdc3j5YR2A+pftzpk8QTd7fhaMfxQsut8EMmYJCPdOvRwfZdUGmp6rs3YnRec3DLWrvz/nkWd7rb8shPOjCH2D0whnORjTQRx5JWQiIMWTraHTLR5Zp0MrInBipjiy7IuNjzA8XDyDvrTVdAmy442DiKwNT3TADFT14H32OLOQbCFLK51csmQpUe1hQasQQG1aFNJ4ufT6KL7sb5iT18DR8nJOoUlWowpS5hOW2aYpSd6ApzVwKToUJpJX3Lf5+gU477MWEnxkYFRY7cLLIuLeVYEJbFz2ConLkx8odJIpWtOmKMnLewvSB0C0hHVgD9imwig5CzUiFcsT1thCsfMA37WQjdq3FmV6ybO0Xpa/+o3WIt1X/EjTsVmB+jdV/uBwQHvj2tNdW2axCTFjixJBP/5T/gOKGxmuL9DINFozWQgzy/A4iribbF2HjA+/OSNuGnJF1EM++EIx9QSd7XY6UrvsSnXaUFU23b+34d5CeIfaMOZqoESjw+Gs0Tsedt4+GQcHCNf7n4IPtxhSRoH87eSw==
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: nextcloud
+      name: nextcloud
+      namespace: backup
+    type: Opaque
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: nextcloud
+  namespace: monitoring
+spec:
+  encryptedData:
+    nextcloud-password: AgBsFGLzh/dcJsehrw3kD4M/fnEPGlDhFcj16H3Xs3RVMjymaNGXiUNAeRRmk8w67suZv86rPLcGQ+txuket7SAdN7U3RWj1ZI/nggPIo+snYbHLccrK9r1Jz3oBziA68Dgjn4PcqrXK6rUPVgiaiq63XeMgjDTHnk8EUE6qs6wzuYh+u4bnbfDaqtg9axuzhvaKIhgitkw7L4O9YbuCMox+rxQxNr2rW3s2H6Eaidr52nJHr4fGBzRF4O5obIucM7Cl26enX36Hoq25/DlthB6aZR3xx2YOUFwErG1t+5hvs2zAeXTgXsidUwurAYRNtNqyQKwnWNm9n801oldxvFdFyfAR59AaT32gv2JFCpYWGjgCaJQsbYNGm1xiA6f704f1cApbjS/d99QCJ9NVMHl4ov3skeTgGMStH0RUHwYVPfMNbm1cANCLbUGZ0CGfJOEe2wNQdsS1AbcKs0wneuFQb9a+czbH/jiRm7X4GkL9C8kt1dOQJTjEYjlGgNa3/xH37Q4Xo4UJ57X5oUExIPkQ8w8U+0cmvrbi+1nt4ybla02zIS5OeNzJAIeoE0ULh1ImBBnXrA5ecK4isb9IWpU9pAo0zhr6lBJY5cIOlgkAtq7XeYRw7wRVw4PrSmb8J3Esr05j2nJv6MgX75pn0d50I/ptjl8YLAINjIx3xSyDWFtSSTyY+QCYwY7NgY4fPZj28byF732t6T8=
+    nextcloud-username: AgB5EJ2POcHzaWw7qiExCqZXy6ahYL+EFfHn1jRvRWhwtSSwF7adi1h7rbmxNf68HDB/coWtCJy2Uyos1NwVPImT251ED6eOn9vCURFaCfofy5HbFI5+F8ZLQ90vlFuCC0q2Aam6BbN99yNSvsDizO96J/hD1JxoyAKqxPgF5eW+1rnKCdc3j5YR2A+pftzpk8QTd7fhaMfxQsut8EMmYJCPdOvRwfZdUGmp6rs3YnRec3DLWrvz/nkWd7rb8shPOjCH2D0whnORjTQRx5JWQiIMWTraHTLR5Zp0MrInBipjiy7IuNjzA8XDyDvrTVdAmy442DiKwNT3TADFT14H32OLOQbCFLK51csmQpUe1hQasQQG1aFNJ4ufT6KL7sb5iT18DR8nJOoUlWowpS5hOW2aYpSd6ApzVwKToUJpJX3Lf5+gU477MWEnxkYFRY7cLLIuLeVYEJbFz2ConLkx8odJIpWtOmKMnLewvSB0C0hHVgD9imwig5CzUiFcsT1thCsfMA37WQjdq3FmV6ybO0Xpa/+o3WIt1X/EjTsVmB+jdV/uBwQHvj2tNdW2axCTFjixJBP/5T/gOKGxmuL9DINFozWQgzy/A4iribbF2HjA+/OSNuGnJF1EM++EIx9QSd7XY6UrvsSnXaUFU23b+34d5CeIfaMOZqoESjw+Gs0Tsedt4+GQcHCNf7n4IPtxhSRoH87eSw==
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: nextcloud
+      name: nextcloud
+      namespace: monitoring
+    type: Opaque    
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nextcloud-metrics
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/name: nextcloud
+  annotations: 
+    prometheus.io/port: "9205"
+    prometheus.io/scrape: "true"
+spec:
+  type: ClusterIP
+  ports:
+  - name: metrics
+    port: 9205
+    targetPort: metrics
+  selector:
+    app.kubernetes.io/name: nextcloud
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nextcloud
+  namespace: backup
+  labels:
+    app.kubernetes.io/name: nextcloud
+spec:
+  type: ClusterIP
+  ports:
+  - port: 443
+    targetPort: 443
+    protocol: TCP
+    name: https
+  selector:
+    app.kubernetes.io/name: nextcloud
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nextcloud
+  namespace: backup
+  labels:
+    app.kubernetes.io/name: nextcloud
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: nextcloud
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: nextcloud
+    spec:
+      containers:
+      - name: nextcloud
+        image: linuxserver/nextcloud:27.0.2
+        imagePullPolicy: IfNotPresent
+        env:        
+        - name: MYSQL_HOST
+          value: "mariadb.databases.svc.cluster.local:3306"
+        - name: MYSQL_DATABASE
+          value: "nextcloud"
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud
+              key: db-username
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud
+              key: db-password
+        - name: NEXTCLOUD_ADMIN_USER
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud
+              key: nextcloud-username
+        - name: NEXTCLOUD_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud
+              key: nextcloud-password
+        - name: NEXTCLOUD_TRUSTED_DOMAINS
+          value: nc.104-400mvb.ca
+        - name: NEXTCLOUD_DATA_DIR
+          value: "/data"
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: TZ
+          value: "America/Toronto"
+        ports:
+        - name: https
+          containerPort: 443
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /status.php
+            port:  443
+            scheme: HTTPS
+            httpHeaders:
+            - name: Host
+              value: "nc.104-400mvb.ca"
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /status.php
+            port:  443
+            scheme: HTTPS
+            httpHeaders:
+            - name: Host
+              value: "nc.104-400mvb.ca"
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 3
+        volumeMounts:
+        - name: nextcloud-config
+          mountPath: /config
+        - name: nextcloud-data
+          mountPath: /data
+      volumes:
+        - name: nextcloud-config
+          persistentVolumeClaim:
+            claimName: nextcloud-config-pvc
+        - name: nextcloud-data
+          persistentVolumeClaim:
+            claimName: nextcloud-data-pvc            
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextcloud-metrics
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: nextcloud
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: nextcloud
+    spec:
+      containers:
+      - name: metrics-exporter
+        image: "xperimental/nextcloud-exporter:0.6.1"
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: NEXTCLOUD_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud
+              key: nextcloud-username
+        - name: NEXTCLOUD_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud
+              key: nextcloud-password
+        - name: NEXTCLOUD_SERVER
+          value: https://nc.104-400mvb.ca
+        - name: NEXTCLOUD_TIMEOUT
+          value: 5s
+        - name: NEXTCLOUD_TLS_SKIP_VERIFY
+          value: "false"
+        ports:
+        - name: metrics
+          containerPort: 9205
+        securityContext:
+          runAsUser: 1000
+          runAsNonRoot: true
