@@ -130,7 +130,7 @@ spec:
             # runAsUser: 508
             # runAsGroup: 508
             privileged: true
-          image: "mbentley/omada-controller@sha256:11cbddead137c31c02ef70917ae876b5bedd684bccf6294cf8ad805fe672537f"
+          image: "mbentley/omada-controller@sha256:26d0d3d86856a4986a707bd924c089c36c1e0b8a82b6e50db879f2fc875e4021"
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
