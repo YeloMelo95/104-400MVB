@@ -80,7 +80,7 @@ spec:
       terminationGracePeriodSeconds: 0
       containers:
         - name: changedetection-io
-          image: dgtlmoon/changedetection.io:0.44
+          image: dgtlmoon/changedetection.io:0.45
           imagePullPolicy: IfNotPresent
           env:
             - name: PLAYWRIGHT_DRIVER_URL
