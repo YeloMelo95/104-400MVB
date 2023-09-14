@@ -162,7 +162,7 @@ metadata:
     app.kubernetes.io/name: keycloak
     app.kubernetes.io/instance: keycloak
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   externalTrafficPolicy: "Cluster"
   sessionAffinity: None
   ports:
