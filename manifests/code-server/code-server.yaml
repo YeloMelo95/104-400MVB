@@ -1,0 +1,130 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+  name: code-server-pv
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 10Gi
+  csi:
+    driver: driver.longhorn.io
+    volumeHandle: code-server
+  storageClassName: longhorn
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+  name: code-server-pvc
+  namespace: convenience
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: longhorn
+  volumeName: code-server-pv
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata: 
+  namespace: convenience
+  name: k3s-git-pv
+spec: 
+  capacity: 
+    storage: 5Gi
+  accessModes: 
+    - ReadWriteMany
+  volumeMode: Filesystem
+  nfs:
+    path: /mnt/Home/k3s/configuration/k3s-ansible/templates
+    server: 192.168.50.50
+  storageClassName: nfs  
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: convenience
+  name: k3s-git-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  volumeName: k3s-git-pv
+  storageClassName: nfs
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: code-server
+  namespace: convenience
+  labels:
+    name: code-server
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8443
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    name: code-server
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: code-server
+  namespace: convenience
+  labels:
+    name: code-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: code-server
+  template:
+    metadata:
+      labels:
+        name: code-server
+    spec:
+      serviceAccountName: default
+      dnsPolicy: ClusterFirst
+      containers:
+      - name: code-server
+        image: "linuxserver/code-server:4.16.1"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8443
+          protocol: TCP
+        volumeMounts:
+          - name: config
+            mountPath: /config
+          - name: k3s-git
+            mountPath: /k3s-git          
+        livenessProbe:
+          tcpSocket:
+            port: http
+          initialDelaySeconds: 30
+          failureThreshold: 5
+          timeoutSeconds: 10
+        readinessProbe:
+          tcpSocket:
+            port: http
+          initialDelaySeconds: 30
+          failureThreshold: 5
+          timeoutSeconds: 10
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: code-server-pvc
+        - name: k3s-git
+          persistentVolumeClaim:
+            claimName: k3s-git-pvc
