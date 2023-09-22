@@ -148,7 +148,7 @@ spec:
     spec:
       containers:
       - name: nextcloud
-        image: linuxserver/nextcloud:27.0.2
+        image: linuxserver/nextcloud:27.1.1
         imagePullPolicy: IfNotPresent
         env:        
         - name: MYSQL_HOST

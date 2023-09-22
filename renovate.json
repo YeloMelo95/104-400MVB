@@ -38,6 +38,10 @@
 		{
 			"matchPackageNames": ["ghcr.io/kube-vip/kube-vip"],
 			"customChangelogUrl": "https://github.com/kube-vip/kube-vip"
+		},	
+		{
+			"matchPackageNames": ["voglerr/free-games-claimer"],
+			"enabled": false
 		},		
 		{
 			"matchPackageNames": ["dgtlmoon/changedetection.io"],
