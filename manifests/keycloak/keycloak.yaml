@@ -163,7 +163,6 @@ metadata:
     app.kubernetes.io/instance: keycloak
 spec:
   type: ClusterIP
-  externalTrafficPolicy: "Cluster"
   sessionAffinity: None
   ports:
     - name: http
