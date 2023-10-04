@@ -11,7 +11,7 @@ My cluster is based on an Intel N100 mini PC with 16GB of RAM and a 256GB NVMe d
 The cluster hosts several services that I use for personal and educational purposes, such as:
 
 - Paperless: a tool which automatically creates local copies of documents received via email
-- Portainer: a tool which provides an intricate oversight of the cluster as well as any docker containers
+- Keycloak: an authentication layer to secure applications and pass credentials to certain applications
 - FGC: a tool leveraged to claim free video games from services such as Epic or Amazon Gaming
 - Home Assistant: a home automation platform used to integrate various services and devices together
 - Eclipse-Mosquitto: an open-source MQTT broker used to provide device information at minimal bandwidth cost
