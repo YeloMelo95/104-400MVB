@@ -38,7 +38,7 @@ spec:
     - ReadWriteMany
   volumeMode: Filesystem
   nfs:
-    path: /mnt/Home/Data/NextCloud
+    path: /volume1/Data/NextCloud
     server: 192.168.50.50
   storageClassName: nfs
 ---
