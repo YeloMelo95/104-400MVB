@@ -1,3 +1,33 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata: 
+  name: keycloak-certificates-pv
+spec: 
+  capacity: 
+    storage: 100Mi
+  accessModes: 
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  storageClassName: longhorn
+  csi:
+    driver: driver.longhorn.io
+    volumeHandle: keycloak-certificates
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: security
+  name: keycloak-certificates-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+  volumeName: keycloak-certificates-pv
+  storageClassName: longhorn 
+---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -48,17 +78,13 @@ spec:
 apiVersion: bitnami.com/v1alpha1
 kind: SealedSecret
 metadata:
-  creationTimestamp: null
   name: keycloak-certificates
   namespace: security
 spec:
   encryptedData:
-    rootCA.crt: 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
-    tls.crt: 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
-    tls.key: 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
+    password: AgAayTfSC8BnoQ0nWaPvufZWeDjOMoQQgcQIvjC9K+k4ZbIvQvwByBhYXWrNa7m1Fh6xfVNL6WLrJUIb7kkbN7syzCUVQlprnnT+K/u9B06mz/KBEfit8TkigfNkpH4bT46hxhnQ29H7z6zBb0UTVIDkVtu/Dy4kuCSMdX57fxd1poBUD31n07dxxjSQc4SpgbbxegvqIuBXsZKSmaxVUaaSMOrcSoqL05mBtWZfYGSR7sBoXTh/vXLn/PlWXU4Q2wwINvjUxm9HMYPjHs3YBRh+eGUrxDixRRQ1hu1EvcT0JLyU6VNpems9WHXtlp8ZHX+CoIPSfXvouZ4wf/D+Acxx/h2283Hxd+OIXssjhrS89NkLzc+FYPyjn+az7bXMl+0qKbXVN1B8BAikLk029FKJz5PQJsaQXJNixP079OVEpdGZvHDzQ6SF0D6NEvENY5iwFJmahQm/nr8u+auWVRPXWQxQq7ZJvE78+Lm+jHGM7Q6y02LDZKfdK5R98XyChf8VLYUxA4ezwaW7PZqvICPDEU1x1T8kNPXJd7+T83dC7SPFhuKRmURV7MthIQwqUgETWJX7fZ1NQx6Trl/0Mniv1v4u1ySwG8EVtQW0Wm/gN6IJJNj7RmmOp2RguWY/dy1bNQA9gmTA1CiIKxmaj8oioPD7O/6Gq9OOCzc1O3g9bSzUfgP2TfzR6bjFUjxVL4zfpR77PXELyTU=
   template:
     metadata:
-      creationTimestamp: null
       name: keycloak-certificates
       namespace: security
     type: Opaque
@@ -80,8 +106,11 @@ data:
   KEYCLOAK_DATABASE_PORT: "5432"
   KEYCLOAK_DATABASE_NAME: "bitnami_keycloak"
   KEYCLOAK_DATABASE_USER: "bn_keycloak"
+  KEYCLOAK_HTTPS_KEY_STORE_FILE: /opt/bitnami/keycloak/certs/keystore.p12
+  KEYCLOAK_HTTPS_TRUST_STORE_FILE: /opt/bitnami/keycloak/certs/truststore.p12
+  KEYCLOAK_SPI_TRUSTSTORE_FILE_FILE: /opt/bitnami/keycloak/certs/truststore.p12  
   KEYCLOAK_PRODUCTION:  "false"
-  KEYCLOAK_ENABLE_HTTPS: "false"
+  KEYCLOAK_ENABLE_HTTPS: "true"
   KEYCLOAK_CACHE_TYPE: "ispn"
   KEYCLOAK_CACHE_STACK: "kubernetes"
   JAVA_OPTS_APPEND: "-Djgroups.dns.query=keycloak-headless.security.svc.cluster.local"
@@ -370,7 +399,7 @@ spec:
             image: ghcr.io/patrickdappollonio/wait-for:latest
             env:
             - name: POSTGRES_HOST
-              value: "keycloak-postgresql.security.svc.cluster.local:5432"
+              value: "keycloak-postgresql.security.svc.cluster.local:5432"           
             args:
             - --host="$(POSTGRES_HOST)"
             - --verbose
@@ -409,11 +438,21 @@ spec:
                   key: password
             - name: KEYCLOAK_HTTP_RELATIVE_PATH
               value: "/"
-            - name: X509_CA_BUNDLE
-              value: "/etc/x509/https/rootCA.crt"              
-          envFrom:
-            - configMapRef:
-                name: keycloak-env-vars
+            - name: KEYCLOAK_HTTPS_KEY_STORE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak-certificates
+                  key: password
+            - name: KEYCLOAK_HTTPS_TRUST_STORE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak-certificates
+                  key: password            
+            - name: KEYCLOAK_SPI_TRUSTSTORE_FILE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak-certificates
+                  key: password            
           resources:
             limits: {}
             requests: {}
@@ -445,15 +484,12 @@ spec:
           volumeMounts:
             - name: providers
               mountPath: /opt/bitnami/keycloak/providers
-            - mountPath: /etc/x509/https/rootCA.crt
-              name: root-cert
+            - mountPath: /opt/bitnami/keycloak/certs
+              name: certificates      
       volumes:
         - name: providers
           persistentVolumeClaim:
             claimName: keycloak-providers-pvc
-        - name: root-cert
-          secret:
-            secretName: keycloak-certificates   
-            items:
-              - key: rootCA.crt
-                path: rootCA.crt            
+        - name: certificates         
+          persistentVolumeClaim:
+            claimName: keycloak-certificates-pvc                 
