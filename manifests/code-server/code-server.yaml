@@ -42,7 +42,7 @@ spec:
     - ReadWriteMany
   volumeMode: Filesystem
   nfs:
-    path: /mnt/Home/k3s/configuration/k3s-ansible/templates
+    path: /volume1/k3s/configuration/k3s-ansible/templates
     server: 192.168.50.50
   storageClassName: nfs  
 ---
