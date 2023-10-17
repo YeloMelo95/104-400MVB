@@ -84,11 +84,11 @@ spec:
         - name: vip_leasename
           value: plndr-cp-lock
         - name: vip_leaseduration
-          value: "5"
+          value: "30"
         - name: vip_renewdeadline
-          value: "3"
+          value: "20"
         - name: vip_retryperiod
-          value: "1"
+          value: "4"
         - name: address
           value: 192.168.50.200
         - name: prometheus_server
