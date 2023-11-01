@@ -82,7 +82,7 @@ spec:
       enableServiceLinks: true
       containers:
         - name: home-assistant
-          image: "homeassistant/home-assistant:2023.10.5"
+          image: "homeassistant/home-assistant:2023.11.0"
           imagePullPolicy: IfNotPresent
           securityContext:
             privileged: true
