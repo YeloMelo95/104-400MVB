@@ -106,11 +106,11 @@ data:
   KEYCLOAK_DATABASE_PORT: "5432"
   KEYCLOAK_DATABASE_NAME: "bitnami_keycloak"
   KEYCLOAK_DATABASE_USER: "bn_keycloak"
-  KEYCLOAK_HTTPS_KEY_STORE_FILE: /opt/bitnami/keycloak/certs/keystore.p12
-  KEYCLOAK_HTTPS_TRUST_STORE_FILE: /opt/bitnami/keycloak/certs/truststore.p12
-  KEYCLOAK_SPI_TRUSTSTORE_FILE_FILE: /opt/bitnami/keycloak/certs/truststore.p12  
+  # KEYCLOAK_HTTPS_KEY_STORE_FILE: /opt/bitnami/keycloak/certs/keystore.p12
+  # KEYCLOAK_HTTPS_TRUST_STORE_FILE: /opt/bitnami/keycloak/certs/truststore.p12
+  # KEYCLOAK_SPI_TRUSTSTORE_FILE_FILE: /opt/bitnami/keycloak/certs/truststore.p12  
   KEYCLOAK_PRODUCTION:  "false"
-  KEYCLOAK_ENABLE_HTTPS: "true"
+  KEYCLOAK_ENABLE_HTTPS: "false"
   KEYCLOAK_CACHE_TYPE: "ispn"
   KEYCLOAK_CACHE_STACK: "kubernetes"
   JAVA_OPTS_APPEND: "-Djgroups.dns.query=keycloak-headless.security.svc.cluster.local"
@@ -418,6 +418,9 @@ spec:
           securityContext:
             runAsNonRoot: true
             runAsUser: 1001
+          envFrom:
+            - configMapRef:
+                name: keycloak-env-vars
           env:
             - name: KUBERNETES_NAMESPACE
               valueFrom:
@@ -438,21 +441,21 @@ spec:
                   key: password
             - name: KEYCLOAK_HTTP_RELATIVE_PATH
               value: "/"
-            - name: KEYCLOAK_HTTPS_KEY_STORE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: keycloak-certificates
-                  key: password
-            - name: KEYCLOAK_HTTPS_TRUST_STORE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: keycloak-certificates
-                  key: password            
-            - name: KEYCLOAK_SPI_TRUSTSTORE_FILE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: keycloak-certificates
-                  key: password            
+            # - name: KEYCLOAK_HTTPS_KEY_STORE_PASSWORD
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: keycloak-certificates
+            #       key: password
+            # - name: KEYCLOAK_HTTPS_TRUST_STORE_PASSWORD
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: keycloak-certificates
+            #       key: password            
+            # - name: KEYCLOAK_SPI_TRUSTSTORE_FILE_PASSWORD
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: keycloak-certificates
+            #       key: password            
           resources:
             limits: {}
             requests: {}
@@ -464,32 +467,28 @@ spec:
               containerPort: 7800
               protocol: TCP
           livenessProbe:
-            failureThreshold: 3
-            initialDelaySeconds: 300
-            periodSeconds: 1
-            successThreshold: 1
-            timeoutSeconds: 5
+            initialDelaySeconds: 25
+            periodSeconds: 10
             httpGet:
               path: /
               port: http
           readinessProbe:
             failureThreshold: 3
-            initialDelaySeconds: 30
+            initialDelaySeconds: 25
             periodSeconds: 10
-            successThreshold: 1
-            timeoutSeconds: 1
+            timeoutSeconds: 10
             httpGet:
               path: /realms/master
               port: http
           volumeMounts:
             - name: providers
               mountPath: /opt/bitnami/keycloak/providers
-            - mountPath: /opt/bitnami/keycloak/certs
-              name: certificates      
+            # - mountPath: /opt/bitnami/keycloak/certs
+            #   name: certificates      
       volumes:
         - name: providers
           persistentVolumeClaim:
             claimName: keycloak-providers-pvc
-        - name: certificates         
-          persistentVolumeClaim:
-            claimName: keycloak-certificates-pvc                 
+        # - name: certificates         
+        #   persistentVolumeClaim:
+        #     claimName: keycloak-certificates-pvc                 
