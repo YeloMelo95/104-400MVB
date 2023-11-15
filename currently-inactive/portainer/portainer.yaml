@@ -102,7 +102,7 @@ spec:
             claimName: portainer-config-pvc
       containers:
         - name: portainer
-          image: "portainer/portainer-ee@sha256:92eed939c763e89ba749483224390b4d41b9ea4eeeff68fcf97994b2135934f7"
+          image: "portainer/portainer-ee@sha256:f1d369b5b8f83765119d8f511586140ab6811d922c1c557916e5c9118af99014"
           imagePullPolicy: IfNotPresent
           args:
           - --http-disabled
