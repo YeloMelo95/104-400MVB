@@ -1217,7 +1217,7 @@ spec:
               mountPath: /k8s
       containers:
         - name: graylog-server
-          image: "graylog/graylog:5.0.3"
+          image: "graylog/graylog:5.2.1"
           imagePullPolicy: "IfNotPresent"
           command:
             - /entrypoint.sh
