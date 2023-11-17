@@ -1106,7 +1106,7 @@ spec:
           runAsNonRoot: true
           runAsUser: 1000
   
-        image: "opensearchproject/opensearch:2.4.0"
+        image: "opensearchproject/opensearch:2.11.0"
         imagePullPolicy: "IfNotPresent"
         readinessProbe:
           failureThreshold: 3
