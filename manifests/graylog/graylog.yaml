@@ -1126,10 +1126,6 @@ spec:
           containerPort: 9200
         - name: transport
           containerPort: 9300
-        resources:
-          requests:
-            cpu: 1000m
-            memory: 100Mi
         env:
         - name: node.name
           valueFrom:
