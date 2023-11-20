@@ -700,6 +700,9 @@ spec:
   ports:
     - name: graylog
       port: 9000
+    - name: syslog
+      protocol: UDP
+      port: 514
   type: LoadBalancer
   loadBalancerIP: 192.168.50.174
   publishNotReadyAddresses: true
@@ -1234,6 +1237,8 @@ spec:
           ports:
             - containerPort: 9000
               name: graylog
+            - containerPort: 514
+              name: syslog
           startupProbe:
             httpGet:
               path: /api/system/lbstatus
