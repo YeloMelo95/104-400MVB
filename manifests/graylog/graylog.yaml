@@ -814,7 +814,7 @@ spec:
       initContainers:
       containers:
         - name: mongodb-arbiter
-          image: docker.io/bitnami/mongodb:7.0.3-debian-11-r0
+          image: docker.io/bitnami/mongodb:7.0.4-debian-11-r0
           imagePullPolicy: "IfNotPresent"
           securityContext:
             runAsNonRoot: true
@@ -924,7 +924,7 @@ spec:
       
       containers:
         - name: mongodb
-          image: docker.io/bitnami/mongodb:7.0.3-debian-11-r0
+          image: docker.io/bitnami/mongodb:7.0.4-debian-11-r0
           imagePullPolicy: "IfNotPresent"
           securityContext:
             runAsNonRoot: true
