@@ -457,8 +457,12 @@ spec:
             #       name: keycloak-certificates
             #       key: password            
           resources:
-            limits: {}
-            requests: {}
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
           ports:
             - name: http
               containerPort: 8080
@@ -467,14 +471,14 @@ spec:
               containerPort: 7800
               protocol: TCP
           livenessProbe:
-            initialDelaySeconds: 25
+            initialDelaySeconds: 45
             periodSeconds: 10
             httpGet:
               path: /
               port: http
           readinessProbe:
             failureThreshold: 3
-            initialDelaySeconds: 25
+            initialDelaySeconds: 45
             periodSeconds: 10
             timeoutSeconds: 10
             httpGet:

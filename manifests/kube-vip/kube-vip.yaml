@@ -68,7 +68,7 @@ spec:
         - name: port
           value: "6443"
         - name: vip_interface
-          value: enp1s0
+          value: enp6s18
         - name: vip_cidr
           value: "32"
         - name: cp_enable
@@ -96,7 +96,13 @@ spec:
         image: ghcr.io/kube-vip/kube-vip:v0.6.3
         imagePullPolicy: Always
         name: kube-vip
-        resources: {}
+        resources:
+          limits:
+            cpu: "100m"
+            #memory: "512Mi"
+          requests:
+            cpu: "50m"
+            #memory: "256Mi"        
         securityContext:
           capabilities:
             add:

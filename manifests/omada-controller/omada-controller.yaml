@@ -132,6 +132,13 @@ spec:
             privileged: true
           image: "mbentley/omada-controller@sha256:c3b6cb6dbec78337b00decc6b20b59708a5cff1f219b5b401de13136fa27b89f"
           imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: "750m"
+              memory: "1Gi"
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
           env:
             - name: TZ
               value: UTC
