@@ -35,6 +35,13 @@ spec:
       containers:
       - name: wyze-bridge-container
         image: mrlt8/wyze-bridge:2.5.1
+        resources:
+          limits:
+            cpu: "400m"
+            memory: "512Mi"
+          requests:
+            cpu: "50m"
+            memory: "128Mi"        
         ports:
         - containerPort: 1935
         - containerPort: 8554

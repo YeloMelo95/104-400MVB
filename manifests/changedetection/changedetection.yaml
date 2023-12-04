@@ -82,6 +82,13 @@ spec:
         - name: changedetection-io
           image: dgtlmoon/changedetection.io:0.45
           imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "512Mi"
+            requests:
+              cpu: "10m"
+              memory: "256Mi"          
           env:
             - name: PLAYWRIGHT_DRIVER_URL
               value: ws://localhost:3000

@@ -127,18 +127,16 @@ spec:
       containers:
         - name: omada-controller
           securityContext:
-            # runAsUser: 508
-            # runAsGroup: 508
             privileged: true
           image: "mbentley/omada-controller@sha256:c3b6cb6dbec78337b00decc6b20b59708a5cff1f219b5b401de13136fa27b89f"
           imagePullPolicy: IfNotPresent
           resources:
             limits:
               cpu: "750m"
-              memory: "1Gi"
+              memory: "1500Mi"
             requests:
-              cpu: "250m"
-              memory: "512Mi"
+              cpu: "200m"
+              memory: "1Gi"
           env:
             - name: TZ
               value: UTC
