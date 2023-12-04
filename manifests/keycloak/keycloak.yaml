@@ -329,10 +329,12 @@ spec:
                   exec pg_isready -U "bn_keycloak" -d "dbname=bitnami_keycloak" -h 127.0.0.1 -p 5432
                   [ -f /opt/bitnami/postgresql/tmp/.initialized ] || [ -f /bitnami/postgresql/.initialized ]
           resources:
-            limits: {}
+            limits: 
+              cpu: "300m"
+              memory: "256Mi"            
             requests:
-              cpu: 250m
-              memory: 256Mi
+              cpu: "250m"
+              memory: "256Mi"
           volumeMounts:
             - name: dshm
               mountPath: /dev/shm
@@ -458,8 +460,8 @@ spec:
             #       key: password            
           resources:
             limits:
-              cpu: "500m"
-              memory: "512Mi"
+              cpu: "1000m"
+              memory: "1Gi"
             requests:
               cpu: "250m"
               memory: "256Mi"
@@ -471,14 +473,14 @@ spec:
               containerPort: 7800
               protocol: TCP
           livenessProbe:
-            initialDelaySeconds: 45
+            initialDelaySeconds: 75
             periodSeconds: 10
             httpGet:
               path: /
               port: http
           readinessProbe:
             failureThreshold: 3
-            initialDelaySeconds: 45
+            initialDelaySeconds: 65
             periodSeconds: 10
             timeoutSeconds: 10
             httpGet:
