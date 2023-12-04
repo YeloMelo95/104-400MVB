@@ -80,19 +80,19 @@ spec:
       serviceAccountName: default
       automountServiceAccountToken: true
       enableServiceLinks: true
+      initContainers:
+        - name: wait-for-db
+          image: ghcr.io/patrickdappollonio/wait-for:latest
+          env:
+          - name: MARIADB_HOST
+            value: "mariadb.databases.svc.cluster.local:3306"           
+          args:
+          - --host="$(MARIADB_HOST)"
+          - --verbose       
       containers:
         - name: home-assistant
           image: "homeassistant/home-assistant:2023.11.3"
-          imagePullPolicy: IfNotPresent
-          initContainers:
-            - name: wait-for-db
-              image: ghcr.io/patrickdappollonio/wait-for:latest
-              env:
-              - name: MARIADB_HOST
-                value: "mariadb.databases.svc.cluster.local:3306"           
-              args:
-              - --host="$(MARIADB_HOST)"
-              - --verbose          
+          imagePullPolicy: IfNotPresent         
           resources:
             limits:
               cpu: "400m"
