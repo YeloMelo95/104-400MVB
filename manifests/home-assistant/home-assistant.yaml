@@ -84,6 +84,22 @@ spec:
         - name: home-assistant
           image: "homeassistant/home-assistant:2023.11.3"
           imagePullPolicy: IfNotPresent
+          initContainers:
+            - name: wait-for-db
+              image: ghcr.io/patrickdappollonio/wait-for:latest
+              env:
+              - name: MARIADB_HOST
+                value: "mariadb.databases.svc.cluster.local:3306"           
+              args:
+              - --host="$(MARIADB_HOST)"
+              - --verbose          
+          resources:
+            limits:
+              cpu: "400m"
+              memory: "1Gi"
+            requests:
+              cpu: "200m"
+              memory: "512Mi"          
           securityContext:
             privileged: true
             capabilities:
