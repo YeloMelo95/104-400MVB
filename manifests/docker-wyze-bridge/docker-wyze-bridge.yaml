@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: wyze-bridge-container
-        image: mrlt8/wyze-bridge:2.5.1
+        image: mrlt8/wyze-bridge:2.6.0
         resources:
           limits:
             cpu: "400m"
