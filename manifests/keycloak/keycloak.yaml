@@ -38,57 +38,6 @@ metadata:
     app.kubernetes.io/instance: keycloak
 automountServiceAccountToken: true
 ---
-apiVersion: bitnami.com/v1alpha1
-kind: SealedSecret
-metadata:
-  creationTimestamp: null
-  name: keycloak-postgresql
-  namespace: security
-spec:
-  encryptedData:
-    password: AgAf6XOT492PGjGPkdbHwaEgoqCGyENYtjm+uWAwI7iToyWSV44QzvxVLxSC244aUK4GnjzNrii8avc7xtG5f/bmfcxOg4Na54CZsBTRigmWug1TpVsCPTQLhd7yIzEtysyo/OyxbzI1OnnOKkkn2sUODV1NHmOyvEk06EZqi275TOjcqirVeI118PjX18GtxPZb7p0EL0Dd+/DwdJxf1l1VwoClbuPDAbZHkQ7slAaDwmhK8L87z8c63FbNZHYyXtDPHAg33Uhf/LOxG4K8g8/ngqt2DxIYO4Ib72aumhTTffJ0tvVfkSxfQOjQq8JUed8lW1UNxfTPWrlfOnB2bgD4IqszM+8gF4UWR9rJL7JrmT6uWiQ55yMvwnJeflfUQrtIchG4CfUHN/8H8wkfX+jhGfWhSdhRd7m/Dhd7KR3JaUh4PwEvaLKvNC2HM22wOm6Mtg833qEX8Dsyes3KXRk+ePlL5KuuGKfBQQAqp3dT5PtTnm7drO8vgHIy2Br+r5XPP7HGvyrYUnCRI66gakdKp1Pe6bZ2Ai4QPzvriF1UhDxnVq7X04iaLZKhWWtIJTqTjBhheh0Kgpkg3z/7ruZAmI1AOtaWMkNqy+pyOJ1P00fF4kzqhkiQycLAXUg1DZJAF/JlxarAUwXlHahq/pWuOZU9pQLuheey3GqMPckW6xwTtCAB+KuZd3nsv0+o6hq3bvBQbE3yF1o=
-    postgres-password: AgBPqscSq7NyuJxJkX3cPhqFGJcz6bkZUpjM9eiXrL5i6hC3R4FXUJYsslZV8dzKigh2PZTvO53r9ltmNi5EP3C41DxdlI1u371yvKCx620R3+LcAigl3W5/CJFlZ8QD1Mo5Q2Qhpl9NfnedMnRTmMahKOX+o3agyX3n9Ed2iHKoGJUnXgWuU6Ct0U1b87oblLQuzX6uSt2+ey27TN0aMSLgUWUt0xQZoOivOhRoE0La4bnNxd2oN5uVCCyHQgH0LIeCnZb62QUPiwsmMl8MAYckEcav5PGLEhuhQtXPNo4IxMD8bcHp108F+VQ0r+vff4o4+RcIxcEbtCA4qO/7KQJABsh/qdiNyEo560kuc24omsp+aWk1u+vYB6EQT/7TCHrxmvC2PmFUSBMcGKEky64YDpLu9FUV5/coRKa3YDLgD1i+5RZtXg2o9pf0i0fVUaRxvqCg2d1cf6VP9D0OP0tTZIow9haQuq8PigTwnr+guRq9AE9cWW/a+7MYzw2gBXSAEUVU9og9HTql4okztQS6JAwShw2BErcUSNXJp0b8YapN/ocifhqjJ46gFnyv5elnDwQBHyM3k7taOcOGoJqtkaZFZ6FwDV379s/lYDR8wPJ/PUqTGvX2hZKr622yeTY+jt2bLoYriY/AO0R5vdN28FF/RZfylehujFeKvH1B0Zt79xP2G5Sb+ItaqeMzEuuF8LIAA4c/aAY=
-  template:
-    metadata:
-      creationTimestamp: null
-      labels:
-        app.kubernetes.io/instance: keycloak
-        app.kubernetes.io/name: postgresql
-      name: keycloak-postgresql
-      namespace: security
-    type: Opaque
----
-apiVersion: bitnami.com/v1alpha1
-kind: SealedSecret
-metadata:
-  name: keycloak
-  namespace: security
-spec:
-  encryptedData:
-    admin-password: AgAsU81bPJDZCbaKbUAhP+p+4lkY71uT5iB5XMFJ4KnKYz3xjUd0W5me8tdAN30HI3CrrGQmlZWj2uTylpZOeJlKWG6ZLr6M9RUMR8JCKSOEVSipZtu0tJf2T+doiyY94WxkJq5ARBQr/3VBw8yUtrKIXHfQxlFgwKmI+RPpK3MohZwB4K2UeqYOzUDame9LfikyAV67mu5o2Yzt3dL13i/M/4HBnPKeGKscrQ/xJcPuXQ5qxhDLtWq5ISuWkE4e82lpuCLOcL7EyIX+gNdVqTGpIpQlUL7sKG+mVxPucE/djqq1Trv1s6570Rgs6cl7Pyt85VpaV16MVfM39HqZ71cuHIsxeeC3tiaxwwqloxKCokGeDqmob1cJIYBbusCQvRFiNMxN8/QeASHjbBUobKcEubnHYxFbEpZM/W+6QIK24Z7X0EgeoK1rpxj8SIlbjBFAKgQBJj3rvvtsEIJ+Cpe9qu3DtXdolSPBA43z/RNnamsIdmNcHWYoO7XrOwB04X/99A26rs5AOCx5FtvflMv21nF8QyPxGAAvwE1aFb/o0piUBqGekZwbDo/QMmBD3UY0YQZkCnzM/n2lgm46tu7KsqO/3KDoEEH+40bzLj0RFw4DqGUjAsoTask7PR+JtvFO9haIPRxg0TtCzbiVks6OgRWeCvy1Bbr+IeNCnrIp45KA+SSk3sLEAWKGLEkvHD0Wjy8hLTVcHXI=
-  template:
-    metadata:
-      labels:
-        app.kubernetes.io/instance: keycloak
-        app.kubernetes.io/name: keycloak
-      name: keycloak
-      namespace: security
-    type: Opaque
----
-apiVersion: bitnami.com/v1alpha1
-kind: SealedSecret
-metadata:
-  name: keycloak-certificates
-  namespace: security
-spec:
-  encryptedData:
-    password: AgAayTfSC8BnoQ0nWaPvufZWeDjOMoQQgcQIvjC9K+k4ZbIvQvwByBhYXWrNa7m1Fh6xfVNL6WLrJUIb7kkbN7syzCUVQlprnnT+K/u9B06mz/KBEfit8TkigfNkpH4bT46hxhnQ29H7z6zBb0UTVIDkVtu/Dy4kuCSMdX57fxd1poBUD31n07dxxjSQc4SpgbbxegvqIuBXsZKSmaxVUaaSMOrcSoqL05mBtWZfYGSR7sBoXTh/vXLn/PlWXU4Q2wwINvjUxm9HMYPjHs3YBRh+eGUrxDixRRQ1hu1EvcT0JLyU6VNpems9WHXtlp8ZHX+CoIPSfXvouZ4wf/D+Acxx/h2283Hxd+OIXssjhrS89NkLzc+FYPyjn+az7bXMl+0qKbXVN1B8BAikLk029FKJz5PQJsaQXJNixP079OVEpdGZvHDzQ6SF0D6NEvENY5iwFJmahQm/nr8u+auWVRPXWQxQq7ZJvE78+Lm+jHGM7Q6y02LDZKfdK5R98XyChf8VLYUxA4ezwaW7PZqvICPDEU1x1T8kNPXJd7+T83dC7SPFhuKRmURV7MthIQwqUgETWJX7fZ1NQx6Trl/0Mniv1v4u1ySwG8EVtQW0Wm/gN6IJJNj7RmmOp2RguWY/dy1bNQA9gmTA1CiIKxmaj8oioPD7O/6Gq9OOCzc1O3g9bSzUfgP2TfzR6bjFUjxVL4zfpR77PXELyTU=
-  template:
-    metadata:
-      name: keycloak-certificates
-      namespace: security
-    type: Opaque
----
 apiVersion: v1
 kind: ConfigMap
 metadata:
