@@ -91,7 +91,7 @@ spec:
           - --verbose       
       containers:
         - name: home-assistant
-          image: "homeassistant/home-assistant:2023.12.4"
+          image: "homeassistant/home-assistant:2024.1.1"
           imagePullPolicy: IfNotPresent         
           resources:
             limits:
