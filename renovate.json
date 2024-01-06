@@ -45,7 +45,7 @@
 		},		
 		{
 			"matchPackageNames": ["ghcr.io/linuxserver/code-server"],
-			"versionScheme": "regex:^(?<major>v?\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)[\\.-][\\.ls]*(?<build>r?\\d+)*$",
+		  # "versionScheme": "regex:^(?<major>v?\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)[\\.-][\\.ls]*(?<build>r?\\d+)*$",
 			"customChangelogUrl": "https://github.com/linuxserver/docker-code-server"
 		},		
 		{

@@ -98,7 +98,7 @@ spec:
       dnsPolicy: ClusterFirst
       containers:
       - name: code-server
-        image: "linuxserver/code-server:4.16.1-ls174"
+        image: "linuxserver/code-server:4.20.0"
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
