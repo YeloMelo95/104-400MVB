@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: free-games-claimer #add app name here
+  namespace: argocd
+spec:
+  destination:
+    name: '' #leave this
+    namespace: convenience #add app namespace here
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: manifests/fgc #add app folder here
+    repoURL: 'https://github.com/YeloMelo95/104-400MVB.git'
+    targetRevision: HEAD
+  sources: []
+  project: public
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true
+      - Replace=true
