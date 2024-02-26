@@ -443,7 +443,7 @@ spec:
       volumes:
         - name: providers
           persistentVolumeClaim:
-            claimName: keycloak-providers-pvc
+            claimName: keycloak-provider-pvc
         # - name: certificates         
         #   persistentVolumeClaim:
         #     claimName: keycloak-certificates-pvc                 
