@@ -197,7 +197,7 @@ spec:
       hostIPC: false
       containers:
         - name: postgresql
-          image: docker.io/bitnami/postgresql:15.2.0-debian-11-r26
+          image: docker.io/bitnami/postgresql:16.1.0-debian-11-r26
           imagePullPolicy: "IfNotPresent"
           securityContext:
             runAsUser: 1001
