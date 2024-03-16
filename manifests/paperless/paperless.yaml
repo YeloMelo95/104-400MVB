@@ -189,7 +189,7 @@ spec:
       serviceAccountName: default
       containers:
         - name: paperless
-          image: paperlessngx/paperless-ngx:2.5
+          image: paperlessngx/paperless-ngx:2.6
           imagePullPolicy: IfNotPresent
           resources:
             limits:
