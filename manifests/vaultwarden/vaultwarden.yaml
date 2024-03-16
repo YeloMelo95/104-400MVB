@@ -90,7 +90,7 @@ spec:
           - --verbose        
       containers:
         - name: vaultwarden
-          image: "vaultwarden/server:1.30.3"
+          image: "vaultwarden/server:1.30.5"
           imagePullPolicy: IfNotPresent          
           resources:
             limits:
