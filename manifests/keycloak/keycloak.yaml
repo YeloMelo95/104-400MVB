@@ -29,6 +29,35 @@ spec:
   storageClassName: longhorn 
 ---
 apiVersion: v1
+kind: PersistentVolume
+metadata: 
+  name: keycloak-postgresql-pv
+spec: 
+  capacity: 
+    storage: 1Gi
+  accessModes: 
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  storageClassName: longhorn
+  csi:
+    driver: driver.longhorn.io
+    volumeHandle: keycloak-postgresql
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: security
+  name: keycloak-postgresql-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  volumeName: keycloak-postgresql-pv
+  storageClassName: longhorn   
+---
+apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: keycloak
