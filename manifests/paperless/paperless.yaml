@@ -189,7 +189,7 @@ spec:
       serviceAccountName: default
       containers:
         - name: paperless
-          image: paperlessngx/paperless-ngx:2.5
+          image: paperlessngx/paperless-ngx:2.6
           imagePullPolicy: IfNotPresent
           resources:
             limits:
@@ -232,7 +232,7 @@ spec:
             - name: PAPERLESS_REDIS
               value: redis://redis-paperless-master.databases.svc.cluster.local:6379
             - name: PAPERLESS_EMAIL_TASK_CRON
-              value: '*/1 * * * *'
+              value: '30 2 * * *'
             - name: PAPERLESS_ENABLE_HTTP_REMOTE_USER
               value: 'True'
             - name: PAPERLESS_HTTP_REMOTE_USER_HEADER_NAME
