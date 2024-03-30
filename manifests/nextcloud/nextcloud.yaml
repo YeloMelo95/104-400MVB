@@ -114,9 +114,6 @@ spec:
         image: linuxserver/nextcloud:28.0.3
         imagePullPolicy: IfNotPresent
         resources:
-          limits:
-            cpu: "1500m"
-            memory: "768Mi"
           requests:
             cpu: "300m"
             memory: "256Mi"        
@@ -218,9 +215,6 @@ spec:
         image: "xperimental/nextcloud-exporter:0.6.2"
         imagePullPolicy: IfNotPresent
         resources:
-          limits:
-            cpu: "100m"
-            memory: "128Mi"
           requests:
             cpu: "10m"
             memory: "32Mi"        

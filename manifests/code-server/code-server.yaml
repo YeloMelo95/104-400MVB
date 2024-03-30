@@ -122,9 +122,6 @@ spec:
           failureThreshold: 5
           timeoutSeconds: 10
         resources:
-          limits:
-            cpu: "150m"
-            #memory: "512Mi"
           requests:
             cpu: "50m"
             #memory: "256Mi"          

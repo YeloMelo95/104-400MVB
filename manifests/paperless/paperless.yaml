@@ -192,9 +192,6 @@ spec:
           image: paperlessngx/paperless-ngx:2.6
           imagePullPolicy: IfNotPresent
           resources:
-            limits:
-              cpu: "700m"
-              memory: "768Mi"
             requests:
               cpu: "300m"
               memory: "512Mi"
@@ -705,9 +702,6 @@ spec:
                 - -c
                 - /health/ping_readiness_local.sh 1
           resources:
-            limits:
-              cpu: "200m"
-              memory: "256Mi"
             requests:
               cpu: "50m"
               memory: "64Mi"
@@ -870,9 +864,6 @@ spec:
                 - -c
                 - /health/ping_readiness_local_and_master.sh 1
           resources:
-            limits:
-              cpu: "200m"
-              memory: "256Mi"
             requests:
               cpu: "50m"
               memory: "64Mi"

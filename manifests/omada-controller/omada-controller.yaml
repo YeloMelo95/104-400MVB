@@ -131,9 +131,6 @@ spec:
           image: "mbentley/omada-controller@sha256:ebe820b4f43e5705a241e2636a1507d56cdd0741f0997dff0b780a94545feb01"
           imagePullPolicy: IfNotPresent
           resources:
-            limits:
-              cpu: "750m"
-              memory: "1500Mi"
             requests:
               cpu: "200m"
               memory: "1Gi"

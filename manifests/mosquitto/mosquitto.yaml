@@ -84,9 +84,6 @@ spec:
           image: "eclipse-mosquitto:2.0.18"
           imagePullPolicy: IfNotPresent
           resources:
-            limits:
-              cpu: "20m"
-              memory: "32Mi"
             requests:
               cpu: "10m"
               memory: "8Mi"          
