@@ -227,7 +227,10 @@ spec:
                   name: paperless-secrets
                   key: PAPERLESS_ADMIN_USER                  
             - name: PAPERLESS_REDIS
-              value: redis://redis-paperless-master.databases.svc.cluster.local:6379
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-secrets
+                  key: redis-url                  
             - name: PAPERLESS_EMAIL_TASK_CRON
               value: '30 2 * * *'
             - name: PAPERLESS_ENABLE_HTTP_REMOTE_USER
