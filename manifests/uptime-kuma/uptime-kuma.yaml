@@ -77,7 +77,7 @@ spec:
       enableServiceLinks: true
       containers:
         - name: uptime-kuma
-          image: "louislam/uptime-kuma:1.23.11"
+          image: "louislam/uptime-kuma:1.23.13"
           imagePullPolicy: IfNotPresent
           resources:
             requests:
