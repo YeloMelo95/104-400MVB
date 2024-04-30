@@ -38,6 +38,7 @@ metadata:
   namespace: convenience
 spec:
   schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
   jobTemplate:
     spec:
       template:
