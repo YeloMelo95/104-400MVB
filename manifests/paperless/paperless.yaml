@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: paperless-config-pv
+  name: paperless-config
 spec:
   capacity:
     storage: 10Gi
@@ -26,12 +26,12 @@ spec:
     requests:
       storage: 10Gi
   storageClassName: longhorn
-  volumeName: paperless-config-pv
+  volumeName: paperless-config
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: paperless-shared-pv
+  name: paperless-shared
 spec:
   capacity:
     storage: 1000Gi
@@ -59,7 +59,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: redis-paperless-master-pv
+  name: redis-paperless-master
 spec:
   capacity:
     storage: 2Gi
@@ -83,12 +83,12 @@ spec:
     requests:
       storage: 2Gi
   storageClassName: longhorn
-  volumeName: redis-paperless-master-pv
+  volumeName: redis-paperless-master
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: redis-paperless-replica-pv
+  name: redis-paperless-replica
 spec:
   capacity:
     storage: 2Gi
@@ -112,7 +112,7 @@ spec:
     requests:
       storage: 2Gi
   storageClassName: longhorn
-  volumeName: redis-paperless-replica-pv
+  volumeName: redis-paperless-replica
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -232,7 +232,7 @@ spec:
                   name: paperless-secrets
                   key: redis-url                  
             - name: PAPERLESS_EMAIL_TASK_CRON
-              value: '30 2 * * *'
+              value: '*/20 * * * *'
             - name: PAPERLESS_ENABLE_HTTP_REMOTE_USER
               value: 'True'
             - name: PAPERLESS_HTTP_REMOTE_USER_HEADER_NAME
@@ -814,7 +814,7 @@ spec:
             - name: REDIS_REPLICATION_MODE
               value: replica
             - name: REDIS_MASTER_HOST
-              value: redis-paperless-master.databases.svc.cluster.local #redis-paperless-master-0.redis-paperless-headless.databases.svc.cluster.local
+              value: redis-paperless-master-0.redis-paperless-headless.databases.svc.cluster.local
             - name: REDIS_MASTER_PORT_NUMBER
               value: "6379"
             - name: ALLOW_EMPTY_PASSWORD

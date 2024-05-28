@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata: 
-  name: keycloak-provider-pv
+  name: keycloak-provider
 spec: 
   capacity: 
     storage: 100Mi
@@ -25,13 +25,13 @@ spec:
   resources:
     requests:
       storage: 100Mi
-  volumeName: keycloak-provider-pv
+  volumeName: keycloak-provider
   storageClassName: longhorn 
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata: 
-  name: keycloak-postgresql-pv
+  name: keycloak-postgresql
 spec: 
   capacity: 
     storage: 1Gi
@@ -54,7 +54,7 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  volumeName: keycloak-postgresql-pv
+  volumeName: keycloak-postgresql
   storageClassName: longhorn   
 ---
 apiVersion: v1

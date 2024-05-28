@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: omada-data-pv
+  name: omada-data
 spec:
   capacity:
     storage: 5Gi
@@ -24,13 +24,13 @@ spec:
   resources:
     requests:
       storage: "5Gi"
-  volumeName: omada-data-pv
+  volumeName: omada-data
   storageClassName: longhorn
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: omada-logs-pv
+  name: omada-logs
 spec:
   capacity:
     storage: 5Gi
@@ -53,7 +53,7 @@ spec:
   resources:
     requests:
       storage: "5Gi"
-  volumeName: omada-logs-pv
+  volumeName: omada-logs
   storageClassName: longhorn  
 ---
 apiVersion: v1
