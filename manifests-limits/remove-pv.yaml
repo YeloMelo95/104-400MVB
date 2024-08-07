@@ -1,0 +1,9 @@
+#!/bin/bash
+
+for dir in */; do
+    folder="${dir%/}"
+    yaml_file="$folder/$folder.yaml"
+    if [ -f "$yaml_file" ]; then
+        sed -i 's/-pv$//' "$yaml_file"
+    fi
+done

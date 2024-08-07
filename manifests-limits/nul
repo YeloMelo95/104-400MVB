@@ -1,0 +1,4 @@
+persistentvolume/uptime-kuma-data unchanged
+persistentvolumeclaim/uptime-kuma-data-pvc unchanged
+service/uptime-kuma created
+deployment.apps/uptime-kuma created

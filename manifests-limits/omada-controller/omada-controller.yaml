@@ -1,0 +1,178 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: omada-data
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes: [ReadWriteOnce]
+  volumeMode: Filesystem
+  storageClassName: longhorn
+  csi:
+    driver: driver.longhorn.io
+    volumeHandle: omada-data
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: omada-data-pvc
+  namespace: omada-controller
+spec:
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests:
+      storage: 5Gi
+  volumeName: omada-data
+  storageClassName: longhorn
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: omada-logs
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes: [ReadWriteOnce]
+  volumeMode: Filesystem
+  storageClassName: longhorn
+  csi:
+    driver: driver.longhorn.io
+    volumeHandle: omada-logs
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: omada-logs-pvc
+  namespace: omada-controller
+spec:
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests:
+      storage: 5Gi
+  volumeName: omada-logs
+  storageClassName: longhorn
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: omada-controller
+  name: omada-controller
+  labels:
+    app.kubernetes.io/instance: omada-controller
+    app.kubernetes.io/name: omada-controller
+  annotations:
+spec:
+  loadBalancerIP: 192.168.50.199
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  ports:
+    - port: 8043
+      targetPort: 8043
+      protocol: TCP
+      name: https
+    - port: 29810
+      targetPort: 29810
+      protocol: UDP
+      name: discovery
+    - port: 29811
+      targetPort: 29811
+      protocol: TCP
+      name: manage-v1
+    - port: 29814
+      targetPort: 29814
+      protocol: TCP
+      name: manage-v2
+    - port: 29812
+      targetPort: 29812
+      protocol: TCP
+      name: adopt
+    - port: 27217
+      targetPort: 27217
+      protocol: TCP
+      name: mongo
+  selector:
+    app.kubernetes.io/name: omada-controller
+    app.kubernetes.io/instance: omada-controller
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: omada-controller
+  name: omada-controller
+  labels:
+    app.kubernetes.io/instance: omada-controller
+    app.kubernetes.io/name: omada-controller
+spec:
+  revisionHistoryLimit: 3
+  replicas: 1
+  serviceName: omada-controller
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: omada-controller
+      app.kubernetes.io/instance: omada-controller
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: omada-controller
+        app.kubernetes.io/instance: omada-controller
+    spec:
+      serviceAccountName: default
+      automountServiceAccountToken: true
+      dnsPolicy: ClusterFirst
+      enableServiceLinks: true
+      containers:
+        - name: omada-controller
+          securityContext:
+            privileged: true
+          image: mbentley/omada-controller@sha256:9b34489bd18f26d796c844d7720758e9f239ca0c91e88a7107b290f19014d8bd
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 200m
+              memory: 256Mi
+            limits:
+              cpu: 300m
+              memory: 512Mi
+          env:
+            - name: TZ
+              value: UTC
+          ports:
+            - name: https
+              containerPort: 8043
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: 8043
+            initialDelaySeconds: 0
+            failureThreshold: 30
+            timeoutSeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: 8043
+            initialDelaySeconds: 0
+            failureThreshold: 30
+            timeoutSeconds: 10
+            periodSeconds: 10
+          startupProbe:
+            tcpSocket:
+              port: 8043
+            initialDelaySeconds: 60
+            failureThreshold: 30
+            timeoutSeconds: 10
+            periodSeconds: 60
+          volumeMounts:
+            - name: data
+              mountPath: /opt/tplink/EAPController/data
+              subPath: data
+            - name: logs
+              mountPath: /opt/tplink/EAPController/logs
+              subPath: logs
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: omada-data-pvc
+        - name: logs
+          persistentVolumeClaim:
+            claimName: omada-logs-pvc

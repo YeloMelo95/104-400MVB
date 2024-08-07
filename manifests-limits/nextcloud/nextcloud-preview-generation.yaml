@@ -1,0 +1,23 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: nextcloud-preview-generation
+  namespace: backup
+spec:
+  schedule: '*/15 * * * *'
+  concurrencyPolicy: Replace
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: preview-generation
+              image: busybox
+              command:
+                - /bin/sh
+                - -c
+                - kubectl exec -it -n backup sts/nextcloud "/usr/bin/occ preview:generate-all"
+          restartPolicy: OnFailure
