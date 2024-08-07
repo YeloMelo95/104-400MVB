@@ -128,7 +128,7 @@ spec:
         - name: omada-controller
           securityContext:
             privileged: true
-          image: "mbentley/omada-controller@sha256:aacf46c818d6777a5da233c2ef32de534df2c5c13745759fabacd19c55ca89b0"
+          image: "mbentley/omada-controller@sha256:ff905cbb0659b24cf8040601fdd63c9e776f072ebc4934bebf712a5d9fd9d7a7"
           imagePullPolicy: IfNotPresent
           resources:
             requests:
