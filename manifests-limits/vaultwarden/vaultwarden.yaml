@@ -86,7 +86,7 @@ spec:
           args: [--host="$(MARIADB_HOST)", --verbose]
       containers:
         - name: vaultwarden
-          image: vaultwarden/server:1.30.5
+          image: vaultwarden/server:1.31.0
           imagePullPolicy: IfNotPresent
           resources:
             requests:
