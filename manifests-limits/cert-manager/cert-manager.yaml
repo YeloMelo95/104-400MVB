@@ -9562,7 +9562,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: cert-manager-cainjector
-          image: quay.io/jetstack/cert-manager-cainjector:v1.15.2
+          image: quay.io/jetstack/cert-manager-cainjector:v1.15.3
           imagePullPolicy: IfNotPresent
           args: [--v=2, --leader-election-namespace=kube-system]
           env:
