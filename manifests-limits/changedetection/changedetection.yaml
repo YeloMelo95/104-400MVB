@@ -78,7 +78,7 @@ spec:
       terminationGracePeriodSeconds: 0
       containers:
         - name: changedetection-io
-          image: dgtlmoon/changedetection.io:0.46.02
+          image: dgtlmoon/changedetection.io:0.46.03
           imagePullPolicy: IfNotPresent
           resources:
             requests:
