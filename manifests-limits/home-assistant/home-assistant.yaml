@@ -87,7 +87,7 @@ spec:
           args: [--host="$(MARIADB_HOST)", --verbose]
       containers:
         - name: home-assistant
-          image: homeassistant/home-assistant:2024.8.1
+          image: homeassistant/home-assistant:2024.8.3
           imagePullPolicy: IfNotPresent
           resources:
             requests:
