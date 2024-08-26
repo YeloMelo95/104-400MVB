@@ -3,7 +3,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   annotations:
-  name: code-server-pv
+  name: code-server
 spec:
   accessModes:
   - ReadWriteOnce
@@ -11,7 +11,7 @@ spec:
     storage: 10Gi
   csi:
     driver: driver.longhorn.io
-    volumeHandle: code-server
+    volumeHandle: code-server-1
   storageClassName: longhorn
   volumeMode: Filesystem
 ---
@@ -28,7 +28,7 @@ spec:
     requests:
       storage: 10Gi
   storageClassName: longhorn
-  volumeName: code-server-pv
+  volumeName: code-server
 ---
 apiVersion: v1
 kind: PersistentVolume
