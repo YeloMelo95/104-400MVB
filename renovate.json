@@ -7,7 +7,7 @@
 	"prHourlyLimit": 0,
 	"timezone": "America/Toronto",
 	"kubernetes": {
-		"fileMatch": ["\\.yaml$"]
+		"fileMatch": ["manifests/.*\\.yaml$"]
 	},
 	"prBodyTemplate": "{{{header}}}{{{table}}}{{{notes}}}{{{changelogs}}}{{{controls}}}",
 	"prBodyNotes": ["{{#if isMajor}}:warning: MAJOR MAJOR MAJOR :warning:{{/if}}"],
