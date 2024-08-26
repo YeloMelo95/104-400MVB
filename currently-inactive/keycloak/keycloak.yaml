@@ -394,7 +394,7 @@ spec:
             - --verbose
       containers:
         - name: keycloak
-          image: docker.io/bitnami/keycloak:24.0.4-debian-12-r1
+          image: docker.io/bitnami/keycloak:24.0.5-debian-12-r8
           imagePullPolicy: IfNotPresent
           securityContext:
             runAsNonRoot: true
