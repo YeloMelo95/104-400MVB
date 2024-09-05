@@ -48,8 +48,12 @@
 			"customChangelogUrl": "https://github.com/dgtlmoon/changedetection.io"
 		},
 		{
-      			"matchPackageNames": ["docker.io/bitnami/keycloak"],
-      			"excludePackageNames": ["docker.io/bitnami/keycloak"]
-    		}
+      		"matchPackageNames": ["docker.io/bitnami/keycloak"],
+      		"excludePackageNames": ["docker.io/bitnami/keycloak"]
+    	},
+		{
+			"matchPackageNames": ["*postgres*", "*redis*"],
+			"enabled": false
+		}
 	]
 }
