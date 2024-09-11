@@ -13,7 +13,7 @@ spec:
   storageClassName: longhorn
   csi:
     driver: driver.longhorn.io
-    volumeHandle: nextcloud-config-1
+    volumeHandle: nextcloud-config
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
