@@ -3,7 +3,9 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   annotations:
-  name: changedetection-data-pv
+  name: changedetection-data
+  labels:
+    argocd.argoproj.io/instance: changedetection
 spec:
   accessModes:
   - ReadWriteOnce
@@ -21,6 +23,8 @@ metadata:
   annotations:
   name: changedetection-data-pvc
   namespace: monitoring
+  labels:
+    argocd.argoproj.io/instance: changedetection  
 spec:
   accessModes:
   - ReadWriteOnce
@@ -28,7 +32,7 @@ spec:
     requests:
       storage: 1Gi
   storageClassName: longhorn
-  volumeName: changedetection-data-pv
+  volumeName: changedetection-data
 ---
 apiVersion: v1
 kind: Service

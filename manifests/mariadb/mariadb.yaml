@@ -4,6 +4,8 @@ kind: PersistentVolume
 metadata:
   annotations:
   name: mariadb-pv
+  labels:
+    argocd.argoproj.io/instance: mariadb  
 spec:
   accessModes:
   - ReadWriteOnce
@@ -21,6 +23,8 @@ metadata:
   annotations:
   name: mariadb-pvc
   namespace: databases
+  labels:
+    argocd.argoproj.io/instance: mariadb  
 spec:
   accessModes:
   - ReadWriteOnce

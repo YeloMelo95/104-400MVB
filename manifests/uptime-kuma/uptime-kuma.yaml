@@ -1,7 +1,9 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: uptime-kuma-data-pv
+  name: uptime-kuma-data
+  labels:
+    argocd.argoproj.io/instance: uptime-kuma
 spec:
   capacity:
     storage: 5Gi
@@ -18,13 +20,15 @@ kind: PersistentVolumeClaim
 metadata:
   namespace: monitoring
   name: uptime-kuma-data-pvc
+  labels:
+    argocd.argoproj.io/instance: uptime-kuma  
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 5Gi
-  volumeName: uptime-kuma-data-pv
+  volumeName: uptime-kuma-data
   storageClassName: longhorn
 ---
 apiVersion: v1

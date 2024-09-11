@@ -4,6 +4,8 @@ kind: PersistentVolume
 metadata:
   annotations:
   name: code-server
+  labels:
+    argocd.argoproj.io/instance: code-server  
 spec:
   accessModes:
   - ReadWriteOnce
@@ -21,6 +23,8 @@ metadata:
   annotations:
   name: code-server-pvc
   namespace: convenience
+  labels:
+    argocd.argoproj.io/instance: code-server    
 spec:
   accessModes:
   - ReadWriteOnce
@@ -35,6 +39,8 @@ kind: PersistentVolume
 metadata: 
   namespace: convenience
   name: k3s-git-pv
+  labels:
+    argocd.argoproj.io/instance: code-server   
 spec: 
   capacity: 
     storage: 5Gi
@@ -51,6 +57,8 @@ kind: PersistentVolumeClaim
 metadata:
   namespace: convenience
   name: k3s-git-pvc
+  labels:
+    argocd.argoproj.io/instance: code-server   
 spec:
   accessModes:
     - ReadWriteMany
