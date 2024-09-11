@@ -3,7 +3,7 @@ kind: PersistentVolume
 metadata:
   name: fgc-data
 labels:
-    argocd.argoproj.io/instance: free-games-claimer
+  argocd.argoproj.io/instance: free-games-claimer
 spec:
   accessModes:
   - ReadWriteOnce
@@ -21,7 +21,7 @@ metadata:
   name: fgc-data-pvc
   namespace: convenience
 labels:
-    argocd.argoproj.io/instance: free-games-claimer  
+  argocd.argoproj.io/instance: free-games-claimer
 spec:
   accessModes:
   - ReadWriteOnce
