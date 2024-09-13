@@ -115,7 +115,7 @@ spec:
     spec:
       containers:
       - name: nextcloud
-        image: linuxserver/nextcloud:29.0.6
+        image: linuxserver/nextcloud:29.0.7
         imagePullPolicy: IfNotPresent
         resources:
           requests:
