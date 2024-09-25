@@ -92,8 +92,8 @@ spec:
           args:
           - --host="$(MARIADB_HOST)"
           - --verbose
-          - --every 5s
-          - --timeout 600               
+          - --every=5s
+          - --timeout=600s               
       containers:
         - name: vaultwarden
           image: "vaultwarden/server:1.32.0"

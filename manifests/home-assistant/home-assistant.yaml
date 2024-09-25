@@ -93,8 +93,8 @@ spec:
           args:
           - --host="$(MARIADB_HOST)"
           - --verbose       
-          - --every 5s
-          - --timeout 600
+          - --every=5s
+          - --timeout=600s
       containers:
         - name: home-assistant
           image: "homeassistant/home-assistant:2024.9.3"

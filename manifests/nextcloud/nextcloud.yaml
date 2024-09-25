@@ -122,8 +122,8 @@ spec:
           args:
           - --host="$(MARIADB_HOST)"
           - --verbose       
-          - --every 5s
-          - --timeout 600    
+          - --every=5s
+          - --timeout=600s   
       containers:
       - name: nextcloud
         image: linuxserver/nextcloud:29.0.7
