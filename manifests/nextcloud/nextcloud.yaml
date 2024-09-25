@@ -113,6 +113,17 @@ spec:
       labels:
         app.kubernetes.io/name: nextcloud
     spec:
+      initContainers:
+        - name: wait-for-db
+          image: ghcr.io/patrickdappollonio/wait-for:latest
+          env:
+          - name: MARIADB_HOST
+            value: "mariadb.databases.svc.cluster.local:3306"           
+          args:
+          - --host="$(MARIADB_HOST)"
+          - --verbose       
+          - --every 5s
+          - --timeout 600    
       containers:
       - name: nextcloud
         image: linuxserver/nextcloud:29.0.7
@@ -198,50 +209,50 @@ spec:
         - name: nextcloud-data
           persistentVolumeClaim:
             claimName: nextcloud-data-pvc            
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: nextcloud-metrics
-  namespace: monitoring
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: nextcloud
-  template:
-    metadata:
-      labels:
-        app.kubernetes.io/name: nextcloud
-    spec:
-      containers:
-      - name: metrics-exporter
-        image: "xperimental/nextcloud-exporter:0.7.0"
-        imagePullPolicy: IfNotPresent
-        resources:
-          requests:
-            cpu: "10m"
-            memory: "32Mi"        
-        env:
-        - name: NEXTCLOUD_USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: nextcloud-metrics
-              key: nextcloud-username
-        - name: NEXTCLOUD_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: nextcloud-metrics
-              key: nextcloud-password
-        - name: NEXTCLOUD_SERVER
-          value: https://nc.104-400mvb.ca
-        - name: NEXTCLOUD_TIMEOUT
-          value: 5s
-        - name: NEXTCLOUD_TLS_SKIP_VERIFY
-          value: "false"
-        ports:
-        - name: metrics
-          containerPort: 9205
-        securityContext:
-          runAsUser: 1000
-          runAsNonRoot: true
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: nextcloud-metrics
+#   namespace: monitoring
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app.kubernetes.io/name: nextcloud
+#   template:
+#     metadata:
+#       labels:
+#         app.kubernetes.io/name: nextcloud
+#     spec:
+#       containers:
+#       - name: metrics-exporter
+#         image: "xperimental/nextcloud-exporter:0.7.0"
+#         imagePullPolicy: IfNotPresent
+#         resources:
+#           requests:
+#             cpu: "10m"
+#             memory: "32Mi"        
+#         env:
+#         - name: NEXTCLOUD_USERNAME
+#           valueFrom:
+#             secretKeyRef:
+#               name: nextcloud-metrics
+#               key: nextcloud-username
+#         - name: NEXTCLOUD_PASSWORD
+#           valueFrom:
+#             secretKeyRef:
+#               name: nextcloud-metrics
+#               key: nextcloud-password
+#         - name: NEXTCLOUD_SERVER
+#           value: https://nc.104-400mvb.ca
+#         - name: NEXTCLOUD_TIMEOUT
+#           value: 5s
+#         - name: NEXTCLOUD_TLS_SKIP_VERIFY
+#           value: "false"
+#         ports:
+#         - name: metrics
+#           containerPort: 9205
+#         securityContext:
+#           runAsUser: 1000
+#           runAsNonRoot: true

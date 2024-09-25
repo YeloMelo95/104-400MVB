@@ -91,7 +91,9 @@ spec:
             value: "mariadb.databases.svc.cluster.local:3306"           
           args:
           - --host="$(MARIADB_HOST)"
-          - --verbose        
+          - --verbose
+          - --every 5s
+          - --timeout 600               
       containers:
         - name: vaultwarden
           image: "vaultwarden/server:1.32.0"
