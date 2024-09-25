@@ -1,47 +1,70 @@
 # Home Lab
-
 ## Purpose
-
-This repository contains the configuration files and scripts that I use to maintain continuous integration and continuous delivery (CI/CD) workflows for the services that run on my home lab's Kubernetes cluster.
+This repository contains the configuration files and scripts used to maintain the continuous integration and continuous delivery (CI/CD) workflows for services running on my multi-node Kubernetes cluster, hosted across three physical nodes on Proxmox.\
+A separate private repository is used to store and manage highly sensitive data that requires additional security beyond what's publicly available in this repository.
 
 ## Cluster Overview
+The cluster runs on three physical nodes, each hosting VMs for both master and worker roles:
 
-My cluster is based on an Intel N100 mini PC with 16GB of RAM and a 256GB NVMe drive. It is currently running Ubuntu 23.04. The node acts as both the master and worker node, and uses MetalLB for load balancing within the local network.
+HP Prodesk 400 G2 Mini (Intel i5 6500T)\
+Dell OptiPlex 3050 Micro (Intel i3 7100T)\
+Beelink S12 Mini (Intel N100)
 
-The cluster hosts several services that I use for personal and educational purposes, such as:
+The master VMs have minimal resources allocated, while the majority of resources are dedicated to the worker/agent VMs to handle service workloads. \
+The cluster utilizes Longhorn for persistent pod storage. \
+Proxmox Backup Server is used for regular VM backups, ensuring redundancy and quick recovery.
 
-- Paperless: a tool which automatically creates local copies of documents received via email
-- Keycloak: an authentication layer to secure applications and pass credentials to certain applications
-- FGC: a tool leveraged to claim free video games from services such as Epic or Amazon Gaming
-- Home Assistant: a home automation platform used to integrate various services and devices together
-- Eclipse-Mosquitto: an open-source MQTT broker used to provide device information at minimal bandwidth cost
+Key components of the cluster include:
 
-and much more.
+MetalLB for internal load balancing\
+Authentik for centralized authentication\
+ArgoCD for GitOps-driven service deployment\
+Renovate by Mend for automating dependency updates\
+SealedSecrets for secure handling of sensitive configuration data\
+Regular Longhorn backups are stored on a NAS, providing a robust backup strategy in combination with Proxmox VM backups.
+
+The current set of deployed services includes:
+
+cert-manager: Manages TLS certificates for Kubernetes services automatically.\
+changedetection: Monitors websites for content changes and sends notifications.\
+code-server: Web-based Visual Studio Code for remote development.\
+docker-wyze-bridge: Streams Wyze camera feeds using RTSP from Docker.\
+home-assistant: Home automation platform integrating various devices and services.\
+kube-vip: Provides a virtual IP for highly available Kubernetes clusters.\
+mariadb: Open-source relational database for storing structured data.\
+mosquitto: Lightweight MQTT broker for IoT device communication.\
+nextcloud: Self-hosted cloud storage and collaboration platform.\
+omada-controller: Manages TP-Link Omada network devices centrally.\
+uptime-kuma: Self-hosted monitoring service to track uptime of websites and services.\
+vaultwarden: Lightweight, self-hosted password manager using Bitwarden APIs.
 
 ## Repository Structure
-
-The 'manifests' folder contains the YAML manifests for each service. The manifests are organized in subfolders according to the namespace they belong to. For example, the 'home-assistant' subfolder has the manifests for the Home Assistant service in the 'automation' namespace.
-
-There is also an 'argocd-manifests' folder, which contains the deployment parameters to add these services directly into ArgoCD for management.
+The manifests folder contains YAML manifests for each service. For example, the 'home-assistant' subfolder houses the manifests for the Home Assistant service.\
+The argocd-manifests folder includes deployment parameters for adding these services to ArgoCD, which manages the synchronization of the Kubernetes cluster's desired state.
 
 ## CI/CD Tools
+The deployment and update of services are automated using two key tools:
 
-To automate the deployment and update of these services, I use two tools:
+ArgoCD: A GitOps tool that ensures the cluster's state matches the desired state stored in Git.\
+Renovate by Mend: A tool that detects outdated dependencies (such as images or Helm charts) and automatically generates pull requests for updates.
 
-- ArgoCD: a declarative GitOps tool that syncs the cluster state with the desired state defined in Git repositories
-- Renovate by Mend: a dependency update tool that scans the Git repositories for outdated images, Helm charts, or other dependencies, and creates pull requests to update them
+## Onboarding
+Services are onboarded through the manifests in the argocd-manifests folder. \
+Once applied, ArgoCD begins managing the associated services automatically.
 
-### Onboarding
-The onboarding of the services is done via the manifests found in the 'argocd-manifests' folder. Once those have been applied, ArgoCD will automatically locate the application manifests stored in this repository and begin managing them per the parameters set in the manifest file.
+## Updates
+The update process follows this workflow:
 
-### Updates
-The update workflow is as follows:
-
-- An image maintainer releases a new image build
-- Renovate detects this new build via a more recent tag or image digest, and generates a pull request to update the manifest's image tag to the newer version
-- Once the pull request is approved and merged, the temporary branch created for the pull request can be deleted
-- ArgoCD picks up the changes to the manifest and automatically triggers an update to the deployed application
+Renovate detects new versions of images or dependencies.\
+A pull request is created to update the manifest.\
+Upon approval and merging, ArgoCD triggers automatic updates to the corresponding applications.
 
 ## Secrets
+Secrets are handled using SealedSecrets, allowing sensitive information to be encrypted and safely committed to the repository. \
+Decryption is only possible by the SealedSecrets controller running in the cluster.
 
-Secrets are stored as "SealedSecrets" using Bitnami's SealedSecrets controller, and can be found in the application manifests. By leveraging this controller, the secret manifest can be publicly displayed, as the secret can only be decrypted by the controller.
+## Backups
+The cluster stores Longhorn data on a separate virtual disk from the OS, which is excluded from Proxmox Backup Server backups. \
+Similarly, containerd folders on the worker nodes are kept on dedicated virtual disks and are not backed up, as they primarily contain ephemeral data. \
+These separate virtual disks for Longhorn and containerd allow for scalable disk space without increasing the OS backup size. \
+Longhorn backs up to a NAS weekly, while OS backups occur daily.
