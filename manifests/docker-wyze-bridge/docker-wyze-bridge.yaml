@@ -25,8 +25,9 @@ spec:
         - containerPort: 1935
         - containerPort: 8554
         - containerPort: 8888
-#        - containerPort: 8889
-#        - containerPort: 8189
+        - containerPort: 5000        
+        - containerPort: 8889
+        - containerPort: 8189
         env:
         - name: WYZE_EMAIL
           valueFrom:
@@ -74,14 +75,14 @@ spec:
       port: 8888
       targetPort: 8888
       protocol: TCP
-#    - name: webrtc
-#      port: 8889
-#      targetPort: 8889
-#      protocol: TCP
-#    - name: webrtc-ice
-#      port: 8189
-#      targetPort: 8189
-#      protocol: UDP
+    - name: webrtc
+      port: 8889
+      targetPort: 8889
+      protocol: TCP
+    - name: webrtc-ice
+      port: 8189
+      targetPort: 8189
+      protocol: UDP
     - name: http
       port: 80
       targetPort: 5000
