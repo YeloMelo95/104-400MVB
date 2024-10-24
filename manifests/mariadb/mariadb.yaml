@@ -107,14 +107,14 @@ metadata:
     app.kubernetes.io/component: primary
   annotations:
 spec:
-  type: ClusterIP
+  type: LoadBalancer
+  loadBalancerIP: 192.168.50.168
   sessionAffinity: None
   ports:
     - name: mysql
       port: 3306
       protocol: TCP
       targetPort: mysql
-      nodePort: null
   selector:
     app.kubernetes.io/instance: mariadb
     app.kubernetes.io/name: mariadb
