@@ -89,7 +89,7 @@ spec:
           image: ghcr.io/patrickdappollonio/wait-for:latest
           env:
           - name: MARIADB_HOST
-            value: "mariadb.databases.svc.cluster.local:3306"           
+            value: "mariadb-galera.databases.svc.cluster.local:3306"           
           args:
           - --host="$(MARIADB_HOST)"
           - --verbose       

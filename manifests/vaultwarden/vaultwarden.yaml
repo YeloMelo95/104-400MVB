@@ -88,7 +88,7 @@ spec:
           image: ghcr.io/patrickdappollonio/wait-for:latest
           env:
           - name: MARIADB_HOST
-            value: "mariadb.databases.svc.cluster.local:3306"           
+            value: "mariadb-galera.databases.svc.cluster.local:3306"           
           args:
           - --host="$(MARIADB_HOST)"
           - --verbose
@@ -111,7 +111,7 @@ spec:
                   name: vaultwarden-secrets
                   key: ADMIN_TOKEN
             - name: DATABASE_URL
-              value: mysql://vaultwarden:vaultwarden@mariadb.databases.svc.cluster.local/vaultwarden?charset=utf8mb4
+              value: mysql://vaultwarden:vaultwarden@mariadb-galera.databases.svc.cluster.local/vaultwarden?charset=utf8mb4
           ports:
             - name: http
               containerPort: 80
