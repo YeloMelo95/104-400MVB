@@ -96,7 +96,7 @@ spec:
           - --timeout=600s               
       containers:
         - name: vaultwarden
-          image: "vaultwarden/server:1.32.2"
+          image: "vaultwarden/server:1.32.5"
           imagePullPolicy: IfNotPresent          
           resources:
             requests:
