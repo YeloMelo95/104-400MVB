@@ -96,7 +96,7 @@ spec:
           - --timeout=600s               
       containers:
         - name: vaultwarden
-          image: "vaultwarden/server:1.32.2"
+          image: "vaultwarden/server:1.32.5"
           imagePullPolicy: IfNotPresent          
           resources:
             requests:
@@ -171,12 +171,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: mariadb-root-password
-                  name: vaultwarden
+                  name: vaultwarden-secrets
             - name: SSHPASS
               valueFrom:
                 secretKeyRef:
                   key: sshpass
-                  name: vaultwarden                 
+                  name: vaultwarden-secrets                 
           image: 'alpine:latest'
           imagePullPolicy: Always
           name: sidecar-mariadb-monitor
