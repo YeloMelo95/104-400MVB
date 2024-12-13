@@ -143,6 +143,46 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /config
+        - command:
+            - /bin/sh
+            - '-c'
+            - |
+              apk add --no-cache mysql-client openssh
+              echo "Starting MariaDB monitor sidecar..."
+              mariadb_down=0
+              while true; do
+                # Check MariaDB readiness
+                if mysqladmin ping -h mariadb-galera-headless.databases.svc.cluster.local --password=$MARIADB_ROOT_PASSWORD --silent; then
+                  if [ "$mariadb_down" -eq 1 ]; then
+                    echo "MariaDB has recovered. Restarting Vaultwarden..."
+                    # Restart Vaultwarden StatefulSet via SSH
+                    sshpass -p "SSHPASS" ssh -o StrictHostKeyChecking=no root@192.168.50.200 "kubectl rollout restart statefulset Vaultwarden -n convenience"
+                    mariadb_down=0  # Reset the flag
+                  fi
+                  echo "MariaDB is up and healthy."
+                else
+                  echo "MariaDB is down."
+                  mariadb_down=1  # Set the flag to indicate MariaDB is down
+                fi
+                sleep 60  # Check MariaDB status every 60 seconds
+              done
+          env:
+            - name: MARIADB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: mariadb-root-password
+                  name: vaultwarden
+            - name: SSHPASS
+              valueFrom:
+                secretKeyRef:
+                  key: sshpass
+                  name: vaultwarden                 
+          image: 'alpine:latest'
+          imagePullPolicy: Always
+          name: sidecar-mariadb-monitor
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File           
       volumes:
         - name: config
           persistentVolumeClaim:
