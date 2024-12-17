@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata: 
-  name: home-assistant-config-pv
+  name: home-assistant-config
   labels:
     argocd.argoproj.io/instance: home-assistant  
 spec: 
@@ -29,7 +29,7 @@ spec:
   resources:
     requests:
       storage: 5Gi
-  volumeName: home-assistant-config-pv
+  volumeName: home-assistant-config
   storageClassName: longhorn 
 ---
 apiVersion: v1
