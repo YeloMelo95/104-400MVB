@@ -152,7 +152,7 @@ spec:
               mariadb_down=0
               while true; do
                 # Check MariaDB readiness
-                if mysqladmin ping -h mariadb-galera-headless.databases.svc.cluster.local --password=$MARIADB_ROOT_PASSWORD --silent; then
+                if mysqladmin ping -h 192.168.50.168:3306 --password=$MARIADB_ROOT_PASSWORD --silent; then
                   if [ "$mariadb_down" -eq 1 ]; then
                     echo "MariaDB has recovered. Restarting Vaultwarden..."
                     # Restart Vaultwarden StatefulSet via SSH

@@ -374,7 +374,7 @@ spec:
             - name: MARIADB_GALERA_CLUSTER_NAME
               value: "galera"
             - name: MARIADB_GALERA_CLUSTER_ADDRESS
-              value: "gcomm://mariadb-galera-0.mariadb-galera-headless.databases.svc.cluster.local,mariadb-galera-1.mariadb-galera-headless.databases.svc.cluster.local,mariadb-galera-2.mariadb-galera-headless.databases.svc.cluster.local"
+              value: "gcomm://mariadb-galera-0.192.168.50.168:3306,mariadb-galera-1.192.168.50.168:3306,mariadb-galera-2.192.168.50.168:3306"
             - name: MARIADB_ROOT_USER
               value: "root"
             - name: MARIADB_ROOT_PASSWORD
