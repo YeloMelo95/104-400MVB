@@ -40,6 +40,7 @@ metadata:
     nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
     nginx.ingress.kubernetes.io/proxy-real-ip-cidr: "192.168.50.0/24"
 spec:
+<<<<<<< HEAD
   ingressClassName: nginx
   rules:
     - host: nc.104-400mvb.ca
@@ -59,3 +60,175 @@ spec:
       secretName: wildcard.104-400mvb.com-tls
     - hosts: ['*.104-400mvb.ca']
       secretName: wildcard.104-400mvb.ca-tls
+=======
+  type: LoadBalancer
+  loadBalancerIP: 192.168.50.197
+  ports:
+  - port: 443
+    targetPort: 443
+    protocol: TCP
+    name: https
+  selector:
+    app.kubernetes.io/name: nextcloud
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nextcloud
+  namespace: backup
+  labels:
+    app.kubernetes.io/name: nextcloud
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: nextcloud
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: nextcloud
+    spec:
+      initContainers:
+        - name: wait-for-db
+          image: ghcr.io/patrickdappollonio/wait-for:latest
+          env:
+          - name: MARIADB_HOST
+            value: "mariadb.databases.svc.cluster.local:3306"           
+          args:
+          - --host="$(MARIADB_HOST)"
+          - --verbose       
+          - --every=5s
+          - --timeout=600s   
+      containers:
+      - name: nextcloud
+        image: linuxserver/nextcloud:30.0.4
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: "300m"
+            memory: "256Mi"        
+        env:        
+        - name: MYSQL_HOST
+          value: "mariadb.databases.svc.cluster.local:3306"
+        - name: MYSQL_DATABASE
+          value: "nextcloud"
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud
+              key: db-username
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud
+              key: db-password
+        - name: NEXTCLOUD_ADMIN_USER
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud
+              key: nextcloud-username
+        - name: NEXTCLOUD_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud
+              key: nextcloud-password
+        - name: NEXTCLOUD_TRUSTED_DOMAINS
+          value: "nc.104-400mvb.ca 192.168.50.197"
+        - name: NEXTCLOUD_DATA_DIR
+          value: "/data"
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: TZ
+          value: "America/Toronto"
+        ports:
+        - name: https
+          containerPort: 443
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /status.php
+            port:  443
+            scheme: HTTPS
+            httpHeaders:
+            - name: Host
+              value: "192.168.50.197"
+          initialDelaySeconds: 60
+          periodSeconds: 20
+          timeoutSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /status.php
+            port:  443
+            scheme: HTTPS
+            httpHeaders:
+            - name: Host
+              value: "192.168.50.197"
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 10
+        volumeMounts:
+        - name: nextcloud-config
+          mountPath: /config
+        - name: nextcloud-data
+          mountPath: /data
+      volumes:
+        - name: nextcloud-config
+          persistentVolumeClaim:
+            claimName: nextcloud-config-pvc
+        - name: nextcloud-data
+          persistentVolumeClaim:
+            claimName: nextcloud-data-pvc            
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: nextcloud-metrics
+#   namespace: monitoring
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app.kubernetes.io/name: nextcloud
+#   template:
+#     metadata:
+#       labels:
+#         app.kubernetes.io/name: nextcloud
+#     spec:
+#       containers:
+#       - name: metrics-exporter
+#         image: "xperimental/nextcloud-exporter:0.7.0"
+#         imagePullPolicy: IfNotPresent
+#         resources:
+#           requests:
+#             cpu: "10m"
+#             memory: "32Mi"        
+#         env:
+#         - name: NEXTCLOUD_USERNAME
+#           valueFrom:
+#             secretKeyRef:
+#               name: nextcloud-metrics
+#               key: nextcloud-username
+#         - name: NEXTCLOUD_PASSWORD
+#           valueFrom:
+#             secretKeyRef:
+#               name: nextcloud-metrics
+#               key: nextcloud-password
+#         - name: NEXTCLOUD_SERVER
+#           value: https://nc.104-400mvb.ca
+#         - name: NEXTCLOUD_TIMEOUT
+#           value: 5s
+#         - name: NEXTCLOUD_TLS_SKIP_VERIFY
+#           value: "false"
+#         ports:
+#         - name: metrics
+#           containerPort: 9205
+#         securityContext:
+#           runAsUser: 1000
+#           runAsNonRoot: true
+>>>>>>> ed3cdc900b8e5f43634bf21153ad7e98dec030f8
