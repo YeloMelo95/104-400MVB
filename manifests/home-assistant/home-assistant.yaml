@@ -97,7 +97,7 @@ spec:
               value: America/Toronto
             - name: PYTHONPATH
               value: '$PYTHONPATH:/config/deps'         
-          image: 'homeassistant/home-assistant:2025.3.3'
+          image: 'homeassistant/home-assistant:2025.3.4'
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 60
