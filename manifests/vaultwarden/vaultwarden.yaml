@@ -42,8 +42,7 @@ metadata:
     app.kubernetes.io/name: vaultwarden
   annotations:
 spec:
-  type: LoadBalancer
-  loadBalancerIP: 192.168.50.6
+  type: ClusterIP
   ports:
   - port: 80
     targetPort: http
@@ -88,7 +87,7 @@ spec:
           image: ghcr.io/patrickdappollonio/wait-for:latest
           env:
           - name: MARIADB_HOST
-            value: "mariadb-galera.databases.svc.cluster.local:3306"           
+            value: "192.168.50.163:3306"           
           args:
           - --host="$(MARIADB_HOST)"
           - --verbose
@@ -111,7 +110,7 @@ spec:
                   name: vaultwarden-secrets
                   key: ADMIN_TOKEN
             - name: DATABASE_URL
-              value: mysql://vaultwarden:vaultwarden@mariadb-galera.databases.svc.cluster.local/vaultwarden?charset=utf8mb4
+              value: mysql://vaultwarden:vaultwarden@192.168.50.163/vaultwarden?charset=utf8mb4
           ports:
             - name: http
               containerPort: 80
@@ -152,7 +151,7 @@ spec:
               mariadb_down=0
               while true; do
                 # Check MariaDB readiness
-                if mysqladmin ping -h 192.168.50.168:3306 --password=$MARIADB_ROOT_PASSWORD --silent; then
+                if mysqladmin ping -h 192.168.50.163:3306 --password=$MARIADB_ROOT_PASSWORD --silent; then
                   if [ "$mariadb_down" -eq 1 ]; then
                     echo "MariaDB has recovered. Restarting Vaultwarden..."
                     # Restart Vaultwarden StatefulSet via SSH
