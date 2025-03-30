@@ -303,7 +303,7 @@ spec:
         sysctls: []
       initContainers:
         - name: preserve-logs-symlinks
-          image: docker.io/bitnami/mariadb-galera:11.4.3-debian-12-r2
+          image: docker.io/bitnami/mariadb-galera:11.7.2-debian-12-r1
           imagePullPolicy: "IfNotPresent"
           securityContext:
             allowPrivilegeEscalation: false
@@ -342,7 +342,7 @@ spec:
               mountPath: /emptydir
       containers:
         - name: "mariadb-galera"
-          image: docker.io/bitnami/mariadb-galera:11.4.3-debian-12-r2
+          image: docker.io/bitnami/mariadb-galera:11.7.2-debian-12-r1
           imagePullPolicy: "IfNotPresent"
           securityContext:
             allowPrivilegeEscalation: false
