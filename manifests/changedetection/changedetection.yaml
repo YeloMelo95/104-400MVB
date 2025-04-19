@@ -148,6 +148,8 @@ spec:
             value: "true"
           - name: ENABLE_DEBUGGER
             value: "false"
+          - name: CONNECTION_TIMEOUT
+            value: "300000"            
           image: browserless/chrome:latest
           name: browserless
           ports:
