@@ -55,6 +55,24 @@ spec:
     app.kubernetes.io/instance: changedetection-io
     app.kubernetes.io/name: changedetection-io
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: changedetection-io-chrome
+  namespace: monitoring
+  labels:
+  annotations:
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3000
+      targetPort: 3000
+      protocol: TCP
+      name: chrome
+  selector:
+    app.kubernetes.io/instance: changedetection-io
+    app.kubernetes.io/name: changedetection-io
+---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -84,7 +102,7 @@ spec:
       terminationGracePeriodSeconds: 0
       containers:
         - name: changedetection-io
-          image: dgtlmoon/changedetection.io:0.49
+          image: dgtlmoon/changedetection.io:0.49.15
           imagePullPolicy: IfNotPresent
           resources:
             requests:
@@ -92,7 +110,7 @@ spec:
               memory: "256Mi"          
           env:
             - name: PLAYWRIGHT_DRIVER_URL
-              value: ws://localhost:3000
+              value: ws://changedetection-io-chrome.monitoring:3000
             - name: TZ
               value: UTC
           ports:
@@ -134,7 +152,7 @@ spec:
           name: browserless
           ports:
           - containerPort: 3000
-            name: browserless
+            name: chrome
       volumes:
         - name: datastore
           persistentVolumeClaim:
