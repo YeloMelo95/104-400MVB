@@ -106,8 +106,8 @@ spec:
           imagePullPolicy: IfNotPresent
           resources:
             requests:
-              cpu: "10m"
-              memory: "256Mi"          
+              cpu: "2"
+              memory: "512Mi"          
           env:
             - name: PLAYWRIGHT_DRIVER_URL
               value: ws://changedetection-io-chrome.monitoring:3000
