@@ -6,6 +6,8 @@
 	"fetchReleaseNotes": "branch",
 	"prHourlyLimit": 0,
 	"timezone": "America/Toronto",
+	"automerge": true,
+	"automergeType": "pr",	
 	"kubernetes": {
 		"fileMatch": ["manifests/.*/.*\\.yaml$"]
 	},
