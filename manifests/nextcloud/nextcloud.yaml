@@ -101,7 +101,7 @@ spec:
           - --timeout=600s   
       containers:
       - name: nextcloud
-        image: linuxserver/nextcloud:31.0.5
+        image: linuxserver/nextcloud:31.0.6
         imagePullPolicy: IfNotPresent
         resources:
           requests:
